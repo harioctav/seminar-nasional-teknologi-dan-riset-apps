@@ -1,0 +1,41 @@
+.img-profile-center {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    border-radius: 50%;
+}
+
+.img-placholder-center {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+#submit-button.loading {
+    cursor: default;
+    pointer-events: none;
+}
+
+#submit-button.loading::after {
+    content: "";
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.3em;
+    vertical-align: middle;
+    border-radius: 50%;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+    animation: button-loading 1s ease-in-out infinite;
+}
+
+@keyframes button-loading {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
