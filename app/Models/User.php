@@ -5,11 +5,12 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\Uuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -71,5 +72,18 @@ class User extends Authenticatable
   public function isRoleId(): int
   {
     return $this->roles->implode('id');
+  }
+
+  /**
+   * Get the user avatar.
+   *
+   */
+  public function getAvatar()
+  {
+    if (!$this->avatar) {
+      return asset('assets/images/default.png');
+    } else {
+      return Storage::url($this->avatar);
+    }
   }
 }

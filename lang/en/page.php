@@ -20,9 +20,12 @@ return [
     'button' => 'Daftar Sekarang',
   ],
 
+  'image' => 'Pratinjau Gambar',
+  'upload' => 'Upload File',
+
   'button' => [
-    'create' => 'Tambah Data',
-    'edit' => 'Ubah Data',
+    'create' => 'Simpan Data Baru',
+    'edit' => 'Simpan Perubahan',
     'delete' => 'Hapus Data',
     'back' => 'Kembali',
   ],

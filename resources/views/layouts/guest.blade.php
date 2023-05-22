@@ -1,48 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
     <meta charset="utf-8" />
-    <title>@yield('title') | {{ config('app.name') }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+  
+    <title>@yield('title') | {{ config('app.name') }}</title>
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <!-- Icons -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/polikami.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/images/polikami.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/polikami.png') }}">
+    <!-- END Icons -->
 
-    <!-- Bootstrap Css -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Custom Css -->
+    <!-- Dashmix framework -->
     <link rel="stylesheet" href="{{ asset('assets/custom/css/custom.css') }}">
-    <!-- App Css-->
-    <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" id="css-main" href="{{ asset('assets/src/css/oneui.min.css') }}">
+    <!-- END Stylesheets -->
+
   </head>
 
   <body>
-    <div class="auth-bg-basic d-flex align-items-center min-vh-100">
-      <div class="bg-overlay bg-light"></div>
-      <div class="container">
-        <div class="d-flex flex-column min-vh-100 py-5 px-3">
-          @yield('content')
-        </div>
-      </div>
-      <!-- end container fluid -->
+
+    <div id="page-container">
+      <main id="main-container">
+        @yield('content')
+      </main>
     </div>
-    <!-- end authentication section -->
 
-    <!-- JAVASCRIPT -->
-    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/metismenujs/metismenujs.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/src/js/oneui.app.min.js') }}"></script>
     <script src="{{ asset('assets/custom/js/custom.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/pass-addon.init.js') }}"></script>
-    @include('sweetalert::alert')
 
+    <!-- jQuery (required for jQuery Validation plugin) -->
+    <script src="{{ asset('assets/src/js/lib/jquery.min.js') }}"></script>
+
+    <!-- Plugin JS -->
+    <script src="{{ asset('assets/src/js/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <!-- Page JS Code -->
+    <script src="{{ asset('assets/src/js/pages/op_auth_signin.min.js') }}"></script>
+
+    <script>
+      One.helpersOnLoad([
+        'jq-select2',
+      ])
+    </script>
+
+    @include('sweetalert::alert')
+    @include('layouts.components.alert')
+    @stack('javascript')
   </body>
 </html>
