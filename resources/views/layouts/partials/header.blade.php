@@ -30,7 +30,7 @@
           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">
             <span class="fs-sm fw-medium">{{ trans('Profile') }}</span>
           </a>
-          <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+          <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('users.password', me()->uuid) }}">
             <span class="fs-sm fw-medium">{{ trans('Ubah Kata Sandi') }}</span>
           </a>
         </div>

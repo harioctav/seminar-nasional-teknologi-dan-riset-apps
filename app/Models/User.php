@@ -10,6 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -22,6 +23,7 @@ class User extends Authenticatable
    * @var array<int, string>
    */
   protected $fillable = [
+    'uuid',
     'name',
     'email',
     'phone',
@@ -85,5 +87,15 @@ class User extends Authenticatable
     } else {
       return Storage::url($this->avatar);
     }
+  }
+
+  /**
+   * Relation into client model.
+   *
+   * @return HasOne
+   */
+  public function client(): HasOne
+  {
+    return $this->hasOne(Client::class, 'user_id');
   }
 }

@@ -7,6 +7,7 @@ use LaravelEasyRepository\Repository;
 
 interface RoleRepository extends Repository
 {
+  public function getRoleWhereNotInAdmin();
   public function firstOrCreate(Request $request);
   public function updateOrFail(int $id, Request $request);
   public function roleHasPermissions(int $id);

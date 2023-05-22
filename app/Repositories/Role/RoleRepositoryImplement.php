@@ -2,8 +2,9 @@
 
 namespace App\Repositories\Role;
 
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Role;
+use App\Helpers\Global\Constant;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class RoleRepositoryImplement extends Eloquent implements RoleRepository
 {
@@ -18,6 +19,14 @@ class RoleRepositoryImplement extends Eloquent implements RoleRepository
   public function __construct(Role $model)
   {
     $this->model = $model;
+  }
+
+  public function getRoleWhereNotInAdmin()
+  {
+    return $this->model->select('*')->whereNotIn('name', [
+      Constant::ADMIN,
+      Constant::REVIEWER,
+    ])->orderBy('name', 'ASC');
   }
 
   public function firstOrCreate($request)
