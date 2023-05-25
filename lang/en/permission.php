@@ -23,4 +23,14 @@ return [
     'update' => 'Memperbarui Peran',
     'destroy' => 'Menghapus Peran',
   ],
+
+  'clients' => [
+    'name' => 'Management Client',
+    'index' => 'List Client',
+    'create' => 'Formulir Tambah Client',
+    'store' => 'Menambahkan Client',
+    'edit' => 'Formulir Ubah Client',
+    'update' => 'Memperbarui Client',
+    'destroy' => 'Menghapus Client',
+  ],
 ];

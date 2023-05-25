@@ -29,6 +29,11 @@ class RoleRepositoryImplement extends Eloquent implements RoleRepository
     ])->orderBy('name', 'ASC');
   }
 
+  public function getRoleReviewerOnly()
+  {
+    return $this->model->select('*')->where('name', Constant::REVIEWER);
+  }
+
   public function firstOrCreate($request)
   {
     $this->model->firstOrCreate([

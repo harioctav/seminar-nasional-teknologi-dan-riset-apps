@@ -5,12 +5,14 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\Uuid;
+use App\Helpers\Global\Constant;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -87,6 +89,45 @@ class User extends Authenticatable
     } else {
       return Storage::url($this->avatar);
     }
+  }
+
+  /**
+   * Get all user, exclude administrator.
+   *
+   * @param  mixed $query
+   * @return void
+   */
+  public function scopeExcludeAdmin($query)
+  {
+    return $query->whereDoesntHave('roles', function ($q) {
+      $q->where('name', Constant::ADMIN);
+    });
+  }
+
+  /**
+   * Get the user status account.
+   *
+   */
+  public function isStatus()
+  {
+    if ($this->status == Constant::ACTIVE) :
+      return '<span class="badge text-success">Active</span>';
+    else :
+      return '<span class="badge text-danger">Inactive</span>';
+    endif;
+  }
+
+  /**
+   * Scope a query to only include inactive users.
+   */
+  public function scopeInactive($data)
+  {
+    return $data->where('status', Constant::INACTIVE);
+  }
+
+  public function getInactive(): Collection
+  {
+    return $this->inactive()->get();
   }
 
   /**

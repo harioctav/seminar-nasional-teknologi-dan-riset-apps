@@ -49,4 +49,12 @@ return [
     'edit' => 'Ubah Data Role & Permission',
     'show' => 'Detail Data Role & Permission',
   ],
+
+  'clients' => [
+    'title' => 'Halaman Client',
+    'index' => 'Tabel Data Client',
+    'create' => 'Tambah Data Client',
+    'edit' => 'Ubah Data Client',
+    'show' => 'Detail Data Client',
+  ],
 ];

@@ -13,9 +13,9 @@
 </div>
 @endsection
 @section('content')
-<div class="container mb-4">
+<div class="mb-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -34,7 +34,7 @@
 </div>
 
 <!-- Stats -->
-<div class="row">
+{{-- <div class="row">
   <div class="col-6 col-md-3 col-lg-6 col-xl-3">
     <a class="block block-rounded block-link-pop" href="javascript:void(0)">
       <div class="block-content block-content-full">
@@ -67,7 +67,7 @@
       </div>
     </a>
   </div>
-</div>
+</div> --}}
 <!-- END Stats -->
 
 @endsection
