@@ -17,11 +17,11 @@
               <i class="fa fa-fw fa-users me-1"></i>
               {{ Constant::REVIEWER }}
             </a>
-            <a href="#" class="btn btn-success btn-hero me-1 mb-3">
+            <a href="{{ route('clients.create') }}" class="btn btn-success btn-hero me-1 mb-3">
               <i class="fas fa-fw fa-clipboard-user me-1"></i>
               {{ Constant::PEMAKALAH }}
             </a>
-            <a href="#" class="btn btn-warning btn-hero me-1 mb-3">
+            <a href="{{ route('clients.create') }}" class="btn btn-warning btn-hero me-1 mb-3">
               <i class="fas fa-fw fa-clipboard-user me-1"></i>
               {{ Constant::PARTICIPANT }}
             </a>

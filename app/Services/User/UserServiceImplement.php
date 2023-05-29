@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserRepository;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\Client;
 use App\Models\User;
 use App\Repositories\Client\ClientRepository;
+use App\Services\Role\RoleService;
 use Illuminate\Http\Request;
 
 class UserServiceImplement extends Service implements UserService
@@ -24,13 +26,16 @@ class UserServiceImplement extends Service implements UserService
    */
   protected $mainRepository;
   protected $clientRepository;
+  protected $roleService;
 
   public function __construct(
+    RoleService $roleService,
     UserRepository $mainRepository,
     ClientRepository $clientRepository,
   ) {
     $this->mainRepository = $mainRepository;
     $this->clientRepository = $clientRepository;
+    $this->roleService = $roleService;
   }
 
   public function getUserExceptAdmin()
@@ -65,8 +70,17 @@ class UserServiceImplement extends Service implements UserService
   {
     DB::beginTransaction();
     try {
+      $role = $this->roleService->findOrFail($request->roles);
+
+      if ($request->file('avatar')) :
+        $avatar = Storage::putFile('public/images/' . strtolower($role->name), $request->file('avatar'));
+      else :
+        $avatar = null;
+      endif;
+
       $validated = $request->validated();
       $validated['name'] = $validated['first_name'] . ' ' . $validated['last_name'];
+      $validated['avatar'] = $avatar;
       $validated['password'] = $request->roles ? Hash::make(Constant::DEFAULT_PASSWORD) : Hash::make($request->password);
       $validated['status'] = Constant::ACTIVE;
 
@@ -118,6 +132,51 @@ class UserServiceImplement extends Service implements UserService
       Log::info($e->getMessage());
       throw new InvalidArgumentException(trans('session.log.error'));
     }
+    DB::commit();
+    return $user;
+  }
+
+  public function handleUpdateClientUser(Client $client, $request)
+  {
+    DB::beginTransaction();
+    try {
+      # Handle update image
+      $role = $this->roleService->findOrFail($request->roles);
+
+      if ($request->file('avatar')) :
+        if ($request->fotoLama) :
+          Storage::delete($client->user->avatar);
+        endif;
+        $avatar = Storage::putFile('public/images/' . strtolower($role->name), $request->file('avatar'));
+      else :
+        $avatar = $request->fotoLama;
+      endif;
+
+      $validated = $request->validated();
+      $validated['avatar'] = $avatar;
+      $validated['name'] = $validated['first_name'] . ' ' . $validated['last_name'];
+
+      $user = $this->mainRepository->findOrFail($client->user_id);
+      $user->update($validated);
+      $user->assignRole($validated['roles']);
+
+      $data = array();
+      $data['first_title'] = strtoupper($validated['first_title']);
+      $data['last_title'] = strtoupper($validated['last_title']);
+      $data['first_name'] = $validated['first_name'];
+      $data['last_name'] = $validated['last_name'];
+      $data['gender'] = $validated['gender'];
+      $data['institution'] = strtoupper($validated['institution']);
+      $data['address'] = $validated['address'];
+
+      # Update Client
+      $this->clientRepository->update($client->id, $data);
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+
     DB::commit();
     return $user;
   }

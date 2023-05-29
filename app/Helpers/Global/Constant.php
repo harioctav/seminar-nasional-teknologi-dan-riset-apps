@@ -26,4 +26,9 @@ class Constant
   public const PENDING = 'Pending';
   public const APPROVED = 'Approved';
   public const REJECTED = 'Rejected';
+
+  // Method
+  public const POST = 'POST';
+  public const PATCH = 'PATCH';
+  public const PUT = 'PUT';
 }
