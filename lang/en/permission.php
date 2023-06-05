@@ -9,6 +9,7 @@ return [
     'show' => 'Detail Pengguna',
     'edit' => 'Formulir Ubah Pengguna',
     'status' => 'Mengubah Status Akun',
+    'image' => 'Menghapus Foto Profil',
     'update' => 'Memperbarui Pengguna',
     'destroy' => 'Menghapus Pengguna',
     'password' => 'Merubah Password Pengguna',
@@ -32,5 +33,15 @@ return [
     'edit' => 'Formulir Ubah Client',
     'update' => 'Memperbarui Client',
     'destroy' => 'Menghapus Client',
+  ],
+
+  'registrations' => [
+    'name' => 'Management Jadwal',
+    'index' => 'List Jadwal',
+    'create' => 'Formulir Tambah Jadwal',
+    'store' => 'Menambahkan Jadwal',
+    'edit' => 'Formulir Ubah Jadwal',
+    'update' => 'Memperbarui Jadwal',
+    'destroy' => 'Menghapus Jadwal',
   ],
 ];

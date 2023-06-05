@@ -76,6 +76,13 @@ class PermissionSeeder extends Seeder
         'updated_at' => now()
       ],
       [
+        'name' => 'users.image',
+        'permission_category_id' => 1,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
         'name' => 'users.destroy',
         'permission_category_id' => 1,
         'guard_name' => 'web',
@@ -143,13 +150,6 @@ class PermissionSeeder extends Seeder
         'updated_at' => now()
       ],
       [
-        'name' => 'clients.show',
-        'permission_category_id' => 3,
-        'guard_name' => 'web',
-        'created_at' => now(),
-        'updated_at' => now()
-      ],
-      [
         'name' => 'clients.edit',
         'permission_category_id' => 3,
         'guard_name' => 'web',
@@ -159,6 +159,50 @@ class PermissionSeeder extends Seeder
       [
         'name' => 'clients.update',
         'permission_category_id' => 3,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+
+      // Halaman Pendaftaran
+      [
+        'name' => 'registrations.index',
+        'permission_category_id' => 4,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'registrations.create',
+        'permission_category_id' => 4,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'registrations.store',
+        'permission_category_id' => 4,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'registrations.edit',
+        'permission_category_id' => 4,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'registrations.update',
+        'permission_category_id' => 4,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'registrations.destroy',
+        'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
         'updated_at' => now()

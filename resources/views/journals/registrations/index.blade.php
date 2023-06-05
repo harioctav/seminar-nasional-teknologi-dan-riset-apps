@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title') {{ trans('page.roles.title') }} @endsection
+@section('title') {{ trans('page.registrations.title') }} @endsection
 @section('hero')
 <div class="content content-full">
   <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">{{ trans('page.roles.title') }}</h1>
+    <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">{{ trans('page.registrations.title') }}</h1>
   </div>
 </div>
 @endsection
@@ -11,18 +11,31 @@
   <div class="block block-rounded">
     <div class="block-header block-header-default">
       <h3 class="block-title">
-        {{ trans('page.roles.index') }}
+        {{ trans('page.registrations.index') }}
       </h3>
       <div class="block-options">
-        @can('roles.create')
-          <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary">
+        @can('registrations.create')
+          <a href="{{ route('registrations.create') }}" class="btn btn-sm btn-primary">
             <i class="fa fa-plus fa-xs me-1"></i>
-            {{ trans('page.roles.create') }}
+            {{ trans('page.registrations.create') }}
           </a>
         @endcan
       </div>
     </div>
     <div class="block-content">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="mb-1">
+            <label for="status" class="form-label">{{ trans('Filter Peran') }}</label>
+            <select type="text" class="form-select" name="status" id="status">
+              <option value="{{ Constant::ALL }}">{{ Constant::ALL }}</option>
+              <option value="{{ Constant::OPEN }}">{{ Constant::OPEN }}</option>
+              <option value="{{ Constant::CLOSE }}">{{ Constant::CLOSE }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
       <div class="my-3">
         {{ $dataTable->table() }}
@@ -39,9 +52,14 @@
 
     $(function () {
       table = $('.table').DataTable()
+
+      $('#status').on('change', function (e) {
+        table.draw()
+        e.preventDefault()
+      })
     })
 
-    function deleteRole(url) {
+    function deleteRegistration(url) {
       Swal.fire({
         icon: 'warning',
         title: 'Apakah Anda Yakin?',

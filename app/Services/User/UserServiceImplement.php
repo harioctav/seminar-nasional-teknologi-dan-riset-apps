@@ -185,6 +185,7 @@ class UserServiceImplement extends Service implements UserService
   {
     DB::beginTransaction();
     try {
+
       # Handle update image
       if ($request->file('avatar')) :
         if ($request->old_avatar) :
@@ -228,5 +229,20 @@ class UserServiceImplement extends Service implements UserService
     }
     DB::commit();
     return $user;
+  }
+
+  public function handleDeleteImage(User $user)
+  {
+    DB::beginTransaction();
+    try {
+      Storage::delete($user->avatar);
+      $execute = $this->mainRepository->deleteUserAvatar($user->id);
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('state.log.error'));
+    }
+    DB::commit();
+    return $execute;
   }
 }

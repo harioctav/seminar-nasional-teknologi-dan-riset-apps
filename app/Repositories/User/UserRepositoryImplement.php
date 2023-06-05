@@ -41,4 +41,12 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
 
     return $user;
   }
+
+  public function deleteUserAvatar(int $id)
+  {
+    $user = $this->findOrFail($id);
+    return $user->updateOrFail([
+      'avatar' => NULL,
+    ]);
+  }
 }

@@ -57,4 +57,12 @@ return [
     'edit' => 'Ubah Data Client',
     'show' => 'Detail Data Client',
   ],
+
+  'registrations' => [
+    'title' => 'Halaman Jadwal',
+    'index' => 'Tabel Data Jadwal',
+    'create' => 'Tambah Data Jadwal',
+    'edit' => 'Ubah Data Jadwal',
+    'show' => 'Detail Data Jadwal',
+  ],
 ];

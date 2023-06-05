@@ -65,7 +65,12 @@ class UserController extends Controller
    */
   public function show(User $user)
   {
-    //
+    # Cek user role
+    if (isRoleName() === Constant::PEMAKALAH || isRoleName() === Constant::PARTICIPANT) :
+      return view('settings.users.profiles.client', compact('user'));
+    else :
+      return view('settings.users.profiles.admin', compact('user'));
+    endif;
   }
 
   /**
@@ -113,6 +118,23 @@ class UserController extends Controller
     $this->userService->handleChangeStatus($user->id);
     return response()->json([
       'message' => trans('session.status'),
+    ]);
+  }
+
+  /**
+   * Delete user image.
+   */
+  public function image(User $user)
+  {
+    if (!$user->avatar) :
+      return response()->json([
+        'message' => trans('Anda tidak memiliki gambar untuk dihapus'),
+      ]);
+    endif;
+
+    $this->userService->handleDeleteImage($user);
+    return response()->json([
+      'message' => trans('Berhasil menghapus gambar'),
     ]);
   }
 }

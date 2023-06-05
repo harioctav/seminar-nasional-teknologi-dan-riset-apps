@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Journals\RegistrationController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\PasswordController;
@@ -39,11 +40,17 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
 
     // User management.
     Route::patch('users/status/{user}', [UserController::class, 'status'])->name('users.status');
+    Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
     Route::resource('users', UserController::class);
 
-    // Participant and Pemakalah management
+    // Participant and Pemakalah management.
     Route::prefix('users')->group(function () {
-      Route::resource('clients', ClientController::class)->except('index', 'destroy');
+      Route::resource('clients', ClientController::class)->except('index', 'destroy', 'show');
     });
+  });
+
+  Route::prefix('journals')->group(function () {
+    // Pendaftaran
+    Route::resource('registrations', RegistrationController::class)->except('show');
   });
 });

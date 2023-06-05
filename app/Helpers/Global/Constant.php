@@ -26,6 +26,8 @@ class Constant
   public const PENDING = 'Pending';
   public const APPROVED = 'Approved';
   public const REJECTED = 'Rejected';
+  public const OPEN = 'Open';
+  public const CLOSE = 'Close';
 
   // Method
   public const POST = 'POST';
