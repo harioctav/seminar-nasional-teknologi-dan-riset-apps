@@ -4,7 +4,7 @@ namespace App\Repositories\Registration;
 
 use LaravelEasyRepository\Repository;
 
-interface RegistrationRepository extends Repository{
-
-    // Write something awesome :)
+interface RegistrationRepository extends Repository
+{
+  public function getAvailableDate();
 }

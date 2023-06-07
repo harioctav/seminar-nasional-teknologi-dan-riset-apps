@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Journals\RegistrationController;
+use App\Http\Controllers\Journals\TransactionController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\PasswordController;
@@ -52,5 +53,8 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
   Route::prefix('journals')->group(function () {
     // Pendaftaran
     Route::resource('registrations', RegistrationController::class)->except('show');
+
+    // Transaksi
+    Route::resource('transactions', TransactionController::class);
   });
 });

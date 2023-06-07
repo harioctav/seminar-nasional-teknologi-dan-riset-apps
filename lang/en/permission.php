@@ -44,4 +44,14 @@ return [
     'update' => 'Memperbarui Jadwal',
     'destroy' => 'Menghapus Jadwal',
   ],
+
+  'transactions' => [
+    'name' => 'Management Transaksi',
+    'index' => 'List Transaksi',
+    'create' => 'Formulir Tambah Transaksi',
+    'store' => 'Menambahkan Transaksi',
+    'edit' => 'Formulir Ubah Transaksi',
+    'update' => 'Memperbarui Transaksi',
+    'destroy' => 'Menghapus Transaksi',
+  ],
 ];

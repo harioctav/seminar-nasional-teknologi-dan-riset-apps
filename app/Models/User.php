@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -138,5 +139,15 @@ class User extends Authenticatable
   public function client(): HasOne
   {
     return $this->hasOne(Client::class, 'user_id');
+  }
+
+  /**
+   * Relation to transaction model.
+   *
+   * @return HasMany
+   */
+  public function transactions(): HasMany
+  {
+    return $this->hasMany(Transaction::class, 'user_id');
   }
 }

@@ -33,4 +33,8 @@ class Constant
   public const POST = 'POST';
   public const PATCH = 'PATCH';
   public const PUT = 'PUT';
+
+  public const NO_REK = "5410401330";
+  public const BANK_NAME = "BANK CENTRAL ASIA";
+  public const BANK_USER_NAME = "ADMIN SEMNASTERA";
 }
