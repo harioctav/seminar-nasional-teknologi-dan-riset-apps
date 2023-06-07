@@ -55,6 +55,6 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::resource('registrations', RegistrationController::class)->except('show');
 
     // Transaksi
-    Route::resource('transactions', TransactionController::class);
+    Route::resource('transactions', TransactionController::class)->except('edit');
   });
 });
