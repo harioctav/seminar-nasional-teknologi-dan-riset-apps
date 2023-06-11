@@ -10,6 +10,7 @@ use App\Http\Controllers\Journals\TransactionController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\PasswordController;
+use App\Http\Controllers\Settings\PaymentController;
 use App\Http\Controllers\Settings\PaymentMethodController;
 use App\Http\Controllers\Users\ClientController;
 
@@ -46,12 +47,9 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
     Route::resource('users', UserController::class);
 
-    // Payment Method management.
-    Route::resource('payment-methods', PaymentMethodController::class)
-      ->parameters([
-        'payment-methods' => 'paymentMethod',
-      ])
-      ->except('show');
+    // Payment management.
+    Route::patch('payments/status/{payment}', [PaymentController::class, 'status'])->name('payments.status');
+    Route::resource('payments', PaymentController::class)->except('show');
 
     // Participant and Pemakalah management.
     Route::prefix('users')->group(function () {

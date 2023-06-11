@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Bank;
 use App\Traits\Uuid;
 use App\Helpers\Global\Constant;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PaymentMethod extends Model
+class Payment extends Model
 {
   use HasFactory, Uuid;
 
@@ -19,10 +21,10 @@ class PaymentMethod extends Model
    */
   protected $fillable = [
     'uuid',
-    'account_number',
-    'account_name',
-    'account_bank',
-    'account_status',
+    'bank_id',
+    'number',
+    'holder_name',
+    'status',
   ];
 
   /**
@@ -39,7 +41,7 @@ class PaymentMethod extends Model
    */
   public function isStatus()
   {
-    if ($this->account_status == Constant::ACTIVE) :
+    if ($this->status == Constant::ACTIVE) :
       return '<span class="badge text-success">Active</span>';
     else :
       return '<span class="badge text-danger">Inactive</span>';
@@ -54,11 +56,21 @@ class PaymentMethod extends Model
    */
   public function scopeActive($data)
   {
-    return $data->where('account_status', Constant::ACTIVE);
+    return $data->where('status', Constant::ACTIVE);
   }
 
   public function getActive(): Collection
   {
     return $this->active()->get();
+  }
+
+  /**
+   * Relation to bank model.
+   *
+   * @return BelongsTo
+   */
+  public function bank(): BelongsTo
+  {
+    return $this->belongsTo(Bank::class, 'bank_id');
   }
 }

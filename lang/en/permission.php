@@ -55,13 +55,14 @@ return [
     'destroy' => 'Menghapus Transaksi',
   ],
 
-  'payment-methods' => [
-    'name' => 'Management Pembayaran',
-    'index' => 'List Pembayaran',
-    'create' => 'Formulir Tambah Pembayaran',
-    'store' => 'Menambahkan Pembayaran',
-    'edit' => 'Formulir Ubah Pembayaran',
-    'update' => 'Memperbarui Pembayaran',
-    'destroy' => 'Menghapus Pembayaran',
+  'payments' => [
+    'name' => 'Management Rekening',
+    'index' => 'List Rekening',
+    'create' => 'Formulir Tambah Rekening',
+    'store' => 'Menambahkan Rekening',
+    'edit' => 'Formulir Ubah Rekening',
+    'update' => 'Memperbarui Rekening',
+    'destroy' => 'Menghapus Rekening',
+    'status' => 'Ubah Status Rekening',
   ],
 ];

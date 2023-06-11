@@ -24,70 +24,70 @@ class PermissionSeeder extends Seeder
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.create',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.store',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.show',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.edit',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.update',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.password',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.status',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.image',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'users.destroy',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
 
       // Halaman Role
@@ -96,42 +96,42 @@ class PermissionSeeder extends Seeder
         'permission_category_id' => 2,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'roles.create',
         'permission_category_id' => 2,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'roles.store',
         'permission_category_id' => 2,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'roles.edit',
         'permission_category_id' => 2,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'roles.update',
         'permission_category_id' => 2,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'roles.destroy',
         'permission_category_id' => 2,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
 
       // Halaman Clients
@@ -140,28 +140,28 @@ class PermissionSeeder extends Seeder
         'permission_category_id' => 3,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'clients.store',
         'permission_category_id' => 3,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'clients.edit',
         'permission_category_id' => 3,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'clients.update',
         'permission_category_id' => 3,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
 
       // Halaman Pendaftaran
@@ -170,42 +170,42 @@ class PermissionSeeder extends Seeder
         'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'registrations.create',
         'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'registrations.store',
         'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'registrations.edit',
         'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'registrations.update',
         'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'registrations.destroy',
         'permission_category_id' => 4,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
 
       // Halaman Transaksi
@@ -214,86 +214,93 @@ class PermissionSeeder extends Seeder
         'permission_category_id' => 5,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'transactions.create',
         'permission_category_id' => 5,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'transactions.store',
         'permission_category_id' => 5,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'transactions.edit',
         'permission_category_id' => 5,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'transactions.update',
         'permission_category_id' => 5,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
         'name' => 'transactions.destroy',
         'permission_category_id' => 5,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
 
       // Halaman Metode Pembayaran
       [
-        'name' => 'payment-methods.index',
+        'name' => 'payments.index',
         'permission_category_id' => 6,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
-        'name' => 'payment-methods.create',
+        'name' => 'payments.create',
         'permission_category_id' => 6,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
-        'name' => 'payment-methods.store',
+        'name' => 'payments.store',
         'permission_category_id' => 6,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
-        'name' => 'payment-methods.edit',
+        'name' => 'payments.edit',
         'permission_category_id' => 6,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
-        'name' => 'payment-methods.update',
+        'name' => 'payments.update',
         'permission_category_id' => 6,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
       ],
       [
-        'name' => 'payment-methods.destroy',
+        'name' => 'payments.destroy',
         'permission_category_id' => 6,
         'guard_name' => 'web',
         'created_at' => now(),
-        'updated_at' => now()
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'payments.status',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
       ],
     ];
 

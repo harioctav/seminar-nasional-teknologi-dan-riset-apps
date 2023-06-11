@@ -1,6 +1,5 @@
 <?php
 
-use App\Helpers\Global\Constant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +11,10 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('payment_methods', function (Blueprint $table) {
+    Schema::create('banks', function (Blueprint $table) {
       $table->id();
-      $table->string('uuid');
-      $table->string('account_number')->unique();
-      $table->string('account_name');
-      $table->string('account_bank')->unique();
-      $table->string('account_status')->default(Constant::INACTIVE);
+      $table->string('name');
+      $table->string('code');
       $table->timestamps();
     });
   }
@@ -28,6 +24,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('payment_methods');
+    Schema::dropIfExists('banks');
   }
 };

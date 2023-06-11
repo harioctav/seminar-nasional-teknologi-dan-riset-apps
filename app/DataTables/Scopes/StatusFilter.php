@@ -21,7 +21,7 @@ class StatusFilter implements DataTableScope
    */
   public function apply($query)
   {
-    $filters = ['status'];
+    $filters = ['status', 'account_status'];
 
     foreach ($filters as $field) :
       if ($this->request->has($field)) :

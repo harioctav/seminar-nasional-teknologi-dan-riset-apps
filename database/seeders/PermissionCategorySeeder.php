@@ -19,7 +19,7 @@ class PermissionCategorySeeder extends Seeder
       'clients.name',
       'registrations.name',
       'transactions.name',
-      'payment-methods.name',
+      'payments.name',
     ];
 
     foreach ($items as $name) :

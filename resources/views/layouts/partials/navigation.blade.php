@@ -45,7 +45,7 @@
         </li>
       @endcanany
 
-      @canany(['roles.index', 'users.index'])
+      @canany(['roles.index', 'users.index', 'payments.index'])
         <li class="nav-main-heading">{{ trans('Management') }}</li>
         <li class="nav-main-item">
           <a class="nav-main-link {{ Request::is('settings*') ? 'active' : '' }} nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="{{ Request::is('settings*') ? 'true' : 'false' }}" href="#">
@@ -61,9 +61,16 @@
               </li>
             @endcan
             @can('roles.index')
+            <li class="nav-main-item">
+              <a class="nav-main-link {{ Request::is('settings/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
+                <span class="nav-main-link-name">{{ trans('Role & Permission') }}</span>
+              </a>
+            </li>
+            @endcan
+            @can('payments.index')
               <li class="nav-main-item">
-                <a class="nav-main-link {{ Request::is('settings/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
-                  <span class="nav-main-link-name">{{ trans('Role & Permission') }}</span>
+                <a class="nav-main-link {{ Request::is('settings/payments*') ? 'active' : '' }}" href="{{ route('payments.index') }}">
+                  <span class="nav-main-link-name">{{ trans('Atur Rekening') }}</span>
                 </a>
               </li>
             @endcan

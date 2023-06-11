@@ -74,11 +74,11 @@ return [
     'show' => 'Detail Data Transaksi',
   ],
 
-  'payment-methods' => [
-    'title' => 'Halaman Metode Pembayaran',
-    'index' => 'Tabel Data Metode Pembayaran',
-    'create' => 'Tambah Data Metode Pembayaran',
-    'edit' => 'Ubah Data Metode Pembayaran',
-    'show' => 'Detail Data Metode Pembayaran',
+  'payments' => [
+    'title' => 'Halaman Rekening',
+    'index' => 'Tabel Data Rekening',
+    'create' => 'Tambah Data Rekening',
+    'edit' => 'Ubah Data Rekening',
+    'show' => 'Detail Data Rekening',
   ],
 ];

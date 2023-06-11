@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Services\PaymentMethod;
+namespace App\Services\Payment;
 
 use Exception;
-use Illuminate\Http\Request;
 use InvalidArgumentException;
-use App\Helpers\Global\Constant;
-use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Log;
-use App\Repositories\PaymentMethod\PaymentMethodRepository;
+use App\Repositories\Payment\PaymentRepository;
 
-class PaymentMethodServiceImplement extends Service implements PaymentMethodService
+class PaymentServiceImplement extends Service implements PaymentService
 {
   /**
    * don't change $this->mainRepository variable name
@@ -20,16 +17,16 @@ class PaymentMethodServiceImplement extends Service implements PaymentMethodServ
    */
   protected $mainRepository;
 
-  public function __construct(PaymentMethodRepository $mainRepository)
+  public function __construct(PaymentRepository $mainRepository)
   {
     $this->mainRepository = $mainRepository;
   }
 
-  public function getActivePaymentMethod()
+  public function changeStatus($payment)
   {
     DB::beginTransaction();
     try {
-      $return = $this->mainRepository->getActivePaymentMethod();
+      $return = $this->mainRepository->changeStatus($payment);
     } catch (Exception $e) {
       DB::rollBack();
       Log::info($e->getMessage());
