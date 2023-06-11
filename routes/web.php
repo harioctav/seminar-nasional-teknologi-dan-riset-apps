@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Journals\JournalController;
 use App\Http\Controllers\Journals\RegistrationController;
 use App\Http\Controllers\Journals\TransactionController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\PasswordController;
+use App\Http\Controllers\Settings\PaymentMethodController;
 use App\Http\Controllers\Users\ClientController;
 
 /*
@@ -44,6 +46,13 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
     Route::resource('users', UserController::class);
 
+    // Payment Method management.
+    Route::resource('payment-methods', PaymentMethodController::class)
+      ->parameters([
+        'payment-methods' => 'paymentMethod',
+      ])
+      ->except('show');
+
     // Participant and Pemakalah management.
     Route::prefix('users')->group(function () {
       Route::resource('clients', ClientController::class)->except('index', 'destroy', 'show');
@@ -51,10 +60,8 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
   });
 
   Route::prefix('journals')->group(function () {
-    // Pendaftaran
-    Route::resource('registrations', RegistrationController::class)->except('show');
-
-    // Transaksi
+    Route::resource('journals', JournalController::class);
     Route::resource('transactions', TransactionController::class)->except('edit');
+    Route::resource('registrations', RegistrationController::class)->except('show');
   });
 });

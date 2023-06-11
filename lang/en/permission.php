@@ -54,4 +54,14 @@ return [
     'update' => 'Memperbarui Transaksi',
     'destroy' => 'Menghapus Transaksi',
   ],
+
+  'payment-methods' => [
+    'name' => 'Management Pembayaran',
+    'index' => 'List Pembayaran',
+    'create' => 'Formulir Tambah Pembayaran',
+    'store' => 'Menambahkan Pembayaran',
+    'edit' => 'Formulir Ubah Pembayaran',
+    'update' => 'Memperbarui Pembayaran',
+    'destroy' => 'Menghapus Pembayaran',
+  ],
 ];

@@ -251,6 +251,50 @@ class PermissionSeeder extends Seeder
         'created_at' => now(),
         'updated_at' => now()
       ],
+
+      // Halaman Metode Pembayaran
+      [
+        'name' => 'payment-methods.index',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'payment-methods.create',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'payment-methods.store',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'payment-methods.edit',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'payment-methods.update',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
+      [
+        'name' => 'payment-methods.destroy',
+        'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now()
+      ],
     ];
 
     $collects = collect($items);

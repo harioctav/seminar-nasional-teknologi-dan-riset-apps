@@ -29,6 +29,11 @@ class Constant
   public const OPEN = 'Open';
   public const CLOSE = 'Close';
 
+  public const DRAFT = 'Draft';
+  public const IN_REVISION = 'In Revision';
+  public const IN_REVIEW = 'In Review';
+  public const ACCEPTED = 'Accepted';
+
   // Method
   public const POST = 'POST';
   public const PATCH = 'PATCH';

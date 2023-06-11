@@ -73,4 +73,12 @@ return [
     'edit' => 'Ubah Data Transaksi',
     'show' => 'Detail Data Transaksi',
   ],
+
+  'payment-methods' => [
+    'title' => 'Halaman Metode Pembayaran',
+    'index' => 'Tabel Data Metode Pembayaran',
+    'create' => 'Tambah Data Metode Pembayaran',
+    'edit' => 'Ubah Data Metode Pembayaran',
+    'show' => 'Detail Data Metode Pembayaran',
+  ],
 ];

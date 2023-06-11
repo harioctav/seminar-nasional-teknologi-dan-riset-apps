@@ -150,4 +150,14 @@ class User extends Authenticatable
   {
     return $this->hasMany(Transaction::class, 'user_id');
   }
+
+  /**
+   * Relation to journal model.
+   *
+   * @return HasMany
+   */
+  public function journals(): HasMany
+  {
+    return $this->hasMany(Journal::class, 'user_id');
+  }
 }
