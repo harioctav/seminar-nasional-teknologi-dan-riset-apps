@@ -7,5 +7,6 @@ use LaravelEasyRepository\Repository;
 
 interface PaymentRepository extends Repository
 {
+  public function getActiveStatus();
   public function changeStatus($payment);
 }

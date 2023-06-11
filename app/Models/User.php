@@ -132,6 +132,16 @@ class User extends Authenticatable
   }
 
   /**
+   * Mengecek apakah user bisa melakukan transaksi atau tidak
+   *
+   * @return void
+   */
+  public function canCreateTransaction()
+  {
+    return $this->transactions()->where('status', Constant::PENDING)->count() === 0;
+  }
+
+  /**
    * Relation into client model.
    *
    * @return HasOne

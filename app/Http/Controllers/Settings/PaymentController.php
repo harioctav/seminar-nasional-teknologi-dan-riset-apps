@@ -53,6 +53,16 @@ class PaymentController extends Controller
   }
 
   /**
+   * Display the specified resource.
+   */
+  public function show(Payment $payment)
+  {
+    return response()->json([
+      'payment' => $payment,
+    ]);
+  }
+
+  /**
    * Show the form for editing the specified resource.
    */
   public function edit(Payment $payment)

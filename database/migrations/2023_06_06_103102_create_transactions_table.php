@@ -15,9 +15,7 @@ return new class extends Migration
     Schema::create('transactions', function (Blueprint $table) {
       $table->id();
       $table->string('uuid');
-      $table->foreignId('user_id')
-        ->constrained('users', 'id')
-        ->onDelete('cascade');
+      $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
       $table->date('upload_date');
       $table->integer('amount');
       $table->string('proof');

@@ -60,6 +60,7 @@ return [
     'index' => 'List Rekening',
     'create' => 'Formulir Tambah Rekening',
     'store' => 'Menambahkan Rekening',
+    'show' => 'Detail Rekening',
     'edit' => 'Formulir Ubah Rekening',
     'update' => 'Memperbarui Rekening',
     'destroy' => 'Menghapus Rekening',

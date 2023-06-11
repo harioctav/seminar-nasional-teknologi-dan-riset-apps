@@ -17,14 +17,14 @@ class RegistrationSeeder extends Seeder
     $items = [
       [
         'title' => 'Jadwal Upload Makalah',
-        'start' => '2023-05-06',
-        'end' => '2023-05-16',
+        'start' => '2023-06-06',
+        'end' => '2023-06-16',
         'status' => Constant::OPEN,
       ],
       [
         'title' => 'Jadwal Acara Seminar',
-        'start' => '2023-05-24',
-        'end' => '2023-05-25',
+        'start' => '2023-06-24',
+        'end' => '2023-06-25',
         'status' => Constant::CLOSE,
       ],
     ];

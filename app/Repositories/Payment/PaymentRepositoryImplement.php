@@ -20,6 +20,11 @@ class PaymentRepositoryImplement extends Eloquent implements PaymentRepository
     $this->model = $model;
   }
 
+  public function getActiveStatus()
+  {
+    return $this->model->active();
+  }
+
   public function changeStatus($payment)
   {
     if ($payment->status == Constant::INACTIVE) :

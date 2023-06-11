@@ -49,7 +49,7 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
 
     // Payment management.
     Route::patch('payments/status/{payment}', [PaymentController::class, 'status'])->name('payments.status');
-    Route::resource('payments', PaymentController::class)->except('show');
+    Route::resource('payments', PaymentController::class);
 
     // Participant and Pemakalah management.
     Route::prefix('users')->group(function () {

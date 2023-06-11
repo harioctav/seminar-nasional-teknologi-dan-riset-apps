@@ -27,6 +27,10 @@ class Payment extends Model
     'status',
   ];
 
+  protected $with = [
+    'bank',
+  ];
+
   /**
    * Get the route key for the model.
    */

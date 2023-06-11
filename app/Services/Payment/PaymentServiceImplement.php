@@ -22,6 +22,20 @@ class PaymentServiceImplement extends Service implements PaymentService
     $this->mainRepository = $mainRepository;
   }
 
+  public function getActiveStatus()
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getActiveStatus();
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
   public function changeStatus($payment)
   {
     DB::beginTransaction();

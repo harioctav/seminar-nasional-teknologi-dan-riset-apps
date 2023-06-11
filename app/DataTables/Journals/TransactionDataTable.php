@@ -39,6 +39,7 @@ class TransactionDataTable extends DataTable
       ->addIndexColumn()
       ->addColumn('user_name', fn ($row) => $row->user->name)
       ->editColumn('upload_date', fn ($row) => Helper::customDate($row->upload_date))
+      ->addColumn('bank_name', fn ($row) => $row->payment->bank->name)
       ->editColumn('proof', 'journals.transactions.proof')
       ->editColumn('status', 'journals.transactions.status')
       ->addColumn('action', 'journals.transactions.action')
@@ -107,6 +108,9 @@ class TransactionDataTable extends DataTable
         ->addClass('text-center'),
       Column::make('user_name')
         ->title(trans('Pemakalah'))
+        ->addClass('text-center'),
+      Column::make('bank_name')
+        ->title(trans('Transfer Via'))
         ->addClass('text-center'),
       Column::make('upload_date')
         ->title(trans('Tanggal Bayar'))

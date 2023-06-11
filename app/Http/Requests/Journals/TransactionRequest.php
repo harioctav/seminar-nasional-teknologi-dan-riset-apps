@@ -22,6 +22,7 @@ class TransactionRequest extends FormRequest
   public function rules(): array
   {
     return [
+      'payment_id' => 'required',
       'amount' => 'required',
       'proof' => 'required|image|mimes:jpg,png|max:3048',
     ];
@@ -30,6 +31,7 @@ class TransactionRequest extends FormRequest
   public function messages(): array
   {
     return [
+      'payment_id.required' => ':attribute tidak boleh dikosongkan',
       'amount.required' => ':attribute tidak boleh dikosongkan',
 
       'proof.required' => ':attribute tidak boleh dikosongkan',
@@ -42,6 +44,7 @@ class TransactionRequest extends FormRequest
   public function attributes(): array
   {
     return [
+      'payment_id' => 'Rekening pembayaran',
       'amount' => 'Jumlah Bayar',
       'proof' => 'Bukti Bayar',
     ];

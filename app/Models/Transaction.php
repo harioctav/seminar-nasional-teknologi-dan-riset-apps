@@ -19,6 +19,7 @@ class Transaction extends Model
   protected $fillable = [
     'uuid',
     'user_id',
+    'payment_id',
     'upload_date',
     'amount',
     'proof',
@@ -42,5 +43,15 @@ class Transaction extends Model
   public function user(): BelongsTo
   {
     return $this->belongsTo(User::class, 'user_id');
+  }
+
+  /**
+   * Relation to payment model.
+   *
+   * @return BelongsTo
+   */
+  public function payment(): BelongsTo
+  {
+    return $this->belongsTo(Payment::class, 'payment_id');
   }
 }

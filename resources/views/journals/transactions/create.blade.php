@@ -26,72 +26,98 @@
   </div>
   <div class="block-content block-content-full">
 
-    <div class="mb-4">
-      <h4>{{ trans('Tata Cara Pembayaran') }}</h4>
-      <ul>
-        <li>{{ trans('Pembayaran dilakukan via transfer Bank') }}</li>
-        <li>{{ trans('Pemakalah atau Peserta melakukan pembayaran mandiri') }}</li>
-        <li>
-          {{ trans('Detail Akun Bank :') }}
-          <div class="col-md-6 mt-2">
+    <form action="{{ route('transactions.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return disableSubmitButton()">
+      @csrf
+
+      <div class="mb-4">
+        <h4>Kebijakan &amp; Tata Cara Pembayaran</h4>
+        <ul>
+          <li>{{ trans('Pembayaran dilakukan via transfer Bank') }}</li>
+          <li>{{ trans('Pemakalah atau Peserta melakukan pembayaran mandiri') }}</li>
+          <li>{{ trans('Pemakalah atau Peserta memilih rekening terlebih dahulu dan detail rekening akan muncul') }}</li>
+          <li>Pemakalah atau Peserta melakukan pembayaran pada <strong>rekening yang sudah disediakan</strong></li>
+          <li>Pemakalah atau Peserta <strong>yang melakukan pembayaran di luar rekening yang sudah disediakan oleh admin</strong>, maka tidak akan diproses dan kami tidak akan bertanggung jawab pada hal tersebut</li>
+          <li>
+            <strong>Note:</strong> Jika sudah memilih rekening detail informasi bank tidak muncul, harap melakukan refresh halaman atau gunakan browser yang mendukung
+          </li>
+          <li>
+            Informasi lebih lanjut silahkan hubungi Administrator
+          </li>
+        </ul>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+
+          <div class="mb-4">
+            <label for="payment_id" class="form-label">{{ trans('Rekening') }}</label>
+            <select name="payment_id" id="payment_id" class="js-select2 form-select @error('payment_id') is-invalid @enderror" data-placeholder="{{ trans('Pilih Rekening') }}" style="width: 100%;">
+              <option></option>
+              @foreach ($payments as $item)
+                @if (old('payment_id') == $item->id)
+                  <option value="{{ $item->id }}" data-uuid="{{ $item->uuid }}" selected>{{ $item->bank->name }}</option>
+                @else
+                  <option value="{{ $item->id }}" data-uuid="{{ $item->uuid }}">{{ $item->bank->name }}</option>
+                @endif
+              @endforeach
+            </select>
+            @error('payment_id')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="mb-4" style="display: none" id="bank-detail">
+
+            <div class="mb-4">
+              <strong>{{ trans('Detail Informasi Rekening') }}</strong>
+              <br>
+              <span class="text-muted">{{ trans('Silahkan pilih rekening untuk menampilkan data') }}</span>
+            </div>
+
             <ul class="list-group push">
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ trans('Nomor Rekening') }}
-                <span class="fw-semibold">{{ Constant::NO_REK }}</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{ trans('Nama Bank') }}
-                <span class="fw-semibold">{{ Constant::BANK_NAME }}</span>
+                <span class="fw-semibold" id="bank-name"></span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ trans('Nama Pemilik Rekening') }}
-                <span class="fw-semibold">{{ Constant::BANK_USER_NAME }}</span>
+                {{ trans('No. Rekening') }}
+                <span class="fw-semibold" id="bank-number"></span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ trans('Jumlah Yang Harus Dibayarkan') }}
-                <span class="fw-semibold">{{ Helper::formatRupiah(55000) }}</span>
+                {{ trans('Atas Nama') }}
+                <span class="fw-semibold" id="bank-name-holder"></span>
               </li>
             </ul>
-          </div>
-        </li>
-      </ul>
-      <h6 class="text-center">{{ trans('Mohon untuk melakukan pembayaran sebagai mana mestinya yang harus dibayarkan, jika anda sudah melakukan pembayaran dan mengisi formulir di bawah ini tetapi data belum juga berubah, anda bisa menguhubungi admin agar proses pembayaran bisa diproses dan anda bisa melakukan upload jurnal.') }}</h6>
-
-      <form action="{{ route('transactions.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return disableSubmitButton()">
-        @csrf
-
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-
-            <div class="mb-4">
-              <label class="form-label" for="amount">{{ trans('Jumlah Bayar') }}</label>
-              <input type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" onkeypress="return hanyaAngka(event)" placeholder="{{ trans('Etc. 45000') }}">
-              @error('amount')
-                <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <div class="mb-4">
-              <label class="form-label" for="image">{{ trans('Upload Bukti') }}</label>
-              <input type="file" accept="image/*" name="proof" id="image" class="form-control @error('proof') is-invalid @enderror">
-              @error('proof')
-                <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
-
-            <div class="mb-4">
-              <button type="submit" class="btn btn-primary w-100" id="submit-button">
-                <i class="fa fa-fw fa-circle-check opacity-50 me-1"></i>
-                {{ trans('page.button.create') }}
-              </button>
-            </div>
 
           </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="amount">{{ trans('Jumlah Bayar') }}</label>
+            <input type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" onkeypress="return hanyaAngka(event)" placeholder="{{ trans('Etc. 45000') }}">
+            @error('amount')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="image">{{ trans('Upload Bukti') }}</label>
+            <input type="file" accept="image/*" name="proof" id="image" class="form-control @error('proof') is-invalid @enderror">
+            @error('proof')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="mb-4">
+            <button type="submit" class="btn btn-primary w-100" id="submit-button">
+              <i class="fa fa-fw fa-circle-check opacity-50 me-1"></i>
+              {{ trans('Submit Pembayaran') }}
+            </button>
+          </div>
+
         </div>
+      </div>
 
-      </form>
-
-    </div>
+    </form>
 
   </div>
 </div>
@@ -123,5 +149,24 @@
 
       return formattedNominal;
     }
+
+    $(document).ready(function () {
+      $('#payment_id').change(function () {
+        var selectedOption = $(this).find('option:selected')
+        var uuid = selectedOption.attr('data-uuid')
+
+        // Gunakan nilai UUID yang Anda dapatkan
+        var url = '{!! route("payments.show", ":uuid") !!}'
+        url = url.replace(':uuid', uuid)
+        $.getJSON(url, function(response) {
+          if (response) {
+            $('#bank-detail').show()
+            $('#bank-name').text(response.payment.bank.name)
+            $('#bank-number').text(response.payment.number)
+            $('#bank-name-holder').text(response.payment.holder_name)
+          }
+        })
+      })
+    })
   </script>
 @endpush
