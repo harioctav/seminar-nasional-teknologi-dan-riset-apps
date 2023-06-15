@@ -48,6 +48,10 @@ class TransactionServiceImplement extends Service implements TransactionService
       $amount = $request->amount;
       $nominal = str_replace(',', '', $amount);
 
+      if ($nominal !== '55000') :
+        return back()->with('error', trans('Nominal harus atau sama dengan Rp. 55,000'));
+      endif;
+
       // Jika ada gambar yang diupload
       if ($request->file('proof')) :
         $proof = Storage::putFile('public/images/proofs', $request->file('proof'));

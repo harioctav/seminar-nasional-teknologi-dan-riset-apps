@@ -37,6 +37,7 @@
           <li>{{ trans('Pemakalah atau Peserta memilih rekening terlebih dahulu dan detail rekening akan muncul') }}</li>
           <li>Pemakalah atau Peserta melakukan pembayaran pada <strong>rekening yang sudah disediakan</strong></li>
           <li>Pemakalah atau Peserta <strong>yang melakukan pembayaran di luar rekening yang sudah disediakan oleh admin</strong>, maka tidak akan diproses dan kami tidak akan bertanggung jawab pada hal tersebut</li>
+          <li>{{ trans('Jumlah yang harus di bayarkan adalah sebesar 55,000 Rupiah') }}</li>
           <li>
             <strong>Note:</strong> Jika sudah memilih rekening detail informasi bank tidak muncul, harap melakukan refresh halaman atau gunakan browser yang mendukung
           </li>
@@ -93,7 +94,7 @@
 
           <div class="mb-4">
             <label class="form-label" for="amount">{{ trans('Jumlah Bayar') }}</label>
-            <input type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" onkeypress="return hanyaAngka(event)" placeholder="{{ trans('Etc. 45000') }}">
+            <input type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount') }}" onkeypress="return hanyaAngka(event)" placeholder="{{ trans('55000') }}">
             @error('amount')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
