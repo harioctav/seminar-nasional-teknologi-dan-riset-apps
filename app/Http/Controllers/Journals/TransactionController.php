@@ -13,6 +13,7 @@ use App\Http\Requests\Journals\TransactionRequest;
 use App\Models\User;
 use App\Services\Payment\PaymentService;
 use App\Services\Registration\RegistrationService;
+use App\Services\User\UserService;
 
 class TransactionController extends Controller
 {
@@ -22,6 +23,7 @@ class TransactionController extends Controller
    * @return void
    */
   public function __construct(
+    protected UserService $userService,
     protected TransactionService $transactionService,
     protected RegistrationService $registrationService,
     protected PaymentService $paymentService,
@@ -54,10 +56,10 @@ class TransactionController extends Controller
       abort(403, trans('error.403'));
     endif;
 
-    $user = User::findOrFail(me()->id);
+    $user = $this->userService->findOrFail(me()->id);
     if (isRoleName() === Constant::PEMAKALAH) :
       if (!$user->canCreateTransaction()) :
-        return redirect()->route('transactions.index')->with('error', 'Anda tidak dapat membuat transaksi baru saat masih memiliki transaksi tertunda.');
+        return redirect()->route('transactions.index')->with('error', trans('error.can_create_transaction'));
       endif;
     endif;
 

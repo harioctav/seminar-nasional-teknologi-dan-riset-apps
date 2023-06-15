@@ -50,6 +50,7 @@ return [
     'index' => 'List Transaksi',
     'create' => 'Formulir Tambah Transaksi',
     'store' => 'Menambahkan Transaksi',
+    'show' => 'Detail Transaksi',
     'edit' => 'Formulir Ubah Transaksi',
     'update' => 'Memperbarui Transaksi',
     'destroy' => 'Menghapus Transaksi',
@@ -65,5 +66,16 @@ return [
     'update' => 'Memperbarui Rekening',
     'destroy' => 'Menghapus Rekening',
     'status' => 'Ubah Status Rekening',
+  ],
+
+  'journals' => [
+    'name' => 'Management Makalah',
+    'index' => 'List Makalah',
+    'create' => 'Formulir Tambah Makalah',
+    'store' => 'Menambahkan Makalah',
+    'show' => 'Detail Makalah',
+    'edit' => 'Formulir Ubah Makalah',
+    'update' => 'Memperbarui Makalah',
+    'destroy' => 'Menghapus Makalah',
   ],
 ];

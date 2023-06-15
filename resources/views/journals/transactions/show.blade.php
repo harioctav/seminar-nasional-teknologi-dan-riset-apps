@@ -103,7 +103,7 @@
       <div class="col-md-6">
         <h4 class="text-center">{{ trans('Bukti Pembayaran') }}</h4>
         <div class="animated fadeIn img-link img-link-zoom-in img-thumb img-lightbox">
-          <img class="img-fluid img-placholder-center" src="{{ Storage::url($transaction->proof) }}" alt="">
+          <img class="img-fluid img-square-center" src="{{ Storage::url($transaction->proof) }}" alt="">
         </div>
       </div>
     </div>

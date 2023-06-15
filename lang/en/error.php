@@ -9,4 +9,6 @@ return [
   '403' => 'Anda tidak memiliki izin untuk mengakses halaman ini',
   '404' => 'Mohon maaf, halaman yang anda cari tidak ditemukan',
 
+  'can_create_transaction' => 'Anda tidak dapat membuat transaksi baru saat masih memiliki transaksi tertunda.',
+
 ];

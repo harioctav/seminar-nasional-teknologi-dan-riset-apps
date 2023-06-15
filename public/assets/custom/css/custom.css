@@ -13,6 +13,13 @@
     width: 100%;
 }
 
+.img-square-center {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
 #submit-button.loading {
     cursor: default;
     pointer-events: none;

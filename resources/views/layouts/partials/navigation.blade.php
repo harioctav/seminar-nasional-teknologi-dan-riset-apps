@@ -19,7 +19,7 @@
         </a>
       </li>
 
-      @canany(['registrations.index', 'transactions.index'])
+      @canany(['registrations.index', 'transactions.index', 'journals.index'])
         <li class="nav-main-heading">{{ trans('Journals') }}</li>
         <li class="nav-main-item">
           <a class="nav-main-link {{ Request::is('journals*') ? 'active' : '' }} nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="{{ Request::is('settings*') ? 'true' : 'false' }}" href="#">
@@ -35,9 +35,16 @@
               </li>
             @endcan
             @can('transactions.index')
+            <li class="nav-main-item">
+              <a class="nav-main-link {{ Request::is('journals/transactions*') ? 'active' : '' }}" href="{{ route('transactions.index') }}">
+                <span class="nav-main-link-name">{{ trans('Transaksi') }}</span>
+              </a>
+            </li>
+            @endcan
+            @can('journals.index')
               <li class="nav-main-item">
-                <a class="nav-main-link {{ Request::is('journals/transactions*') ? 'active' : '' }}" href="{{ route('transactions.index') }}">
-                  <span class="nav-main-link-name">{{ trans('Transaksi') }}</span>
+                <a class="nav-main-link {{ Request::is('journals/journals*') ? 'active' : '' }}" href="{{ route('journals.index') }}">
+                  <span class="nav-main-link-name">{{ trans('Upload Makalah') }}</span>
                 </a>
               </li>
             @endcan

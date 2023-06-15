@@ -74,6 +74,14 @@ return [
     'show' => 'Detail Data Transaksi',
   ],
 
+  'journals' => [
+    'title' => 'Halaman Makalah',
+    'index' => 'Tabel Data Makalah',
+    'create' => 'Tambah Data Makalah',
+    'edit' => 'Ubah Data Makalah',
+    'show' => 'Detail Data Makalah',
+  ],
+
   'payments' => [
     'title' => 'Halaman Rekening',
     'index' => 'Tabel Data Rekening',

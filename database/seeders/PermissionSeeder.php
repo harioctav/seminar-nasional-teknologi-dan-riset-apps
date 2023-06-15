@@ -238,6 +238,13 @@ class PermissionSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
+        'name' => 'transactions.show',
+        'permission_category_id' => 5,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
         'name' => 'transactions.update',
         'permission_category_id' => 5,
         'guard_name' => 'web',
@@ -305,6 +312,57 @@ class PermissionSeeder extends Seeder
       [
         'name' => 'payments.status',
         'permission_category_id' => 6,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+
+      // Journal
+      [
+        'name' => 'journals.index',
+        'permission_category_id' => 7,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'journals.create',
+        'permission_category_id' => 7,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'journals.store',
+        'permission_category_id' => 7,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'journals.edit',
+        'permission_category_id' => 7,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'journals.show',
+        'permission_category_id' => 7,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'journals.update',
+        'permission_category_id' => 7,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'journals.destroy',
+        'permission_category_id' => 7,
         'guard_name' => 'web',
         'created_at' => now(),
         'updated_at' => now(),
