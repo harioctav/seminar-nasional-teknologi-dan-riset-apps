@@ -11,7 +11,6 @@ use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\PaymentController;
-use App\Http\Controllers\Settings\PaymentMethodController;
 use App\Http\Controllers\Users\ClientController;
 
 /*

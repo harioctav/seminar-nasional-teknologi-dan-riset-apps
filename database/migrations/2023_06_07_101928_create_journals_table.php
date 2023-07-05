@@ -21,6 +21,7 @@ return new class extends Migration
       $table->text('abstract');
       $table->string('upload_year');
       $table->string('file', 190);
+      $table->boolean('is_approved')->default(false);
       $table->string('status')->default(Constant::DRAFT);
       $table->timestamps();
     });

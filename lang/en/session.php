@@ -15,4 +15,8 @@ return [
     'active' => 'Aktif',
     'inactive' => 'Tidak Aktif',
   ],
+
+  'journals' => [
+    'can_upload' => 'Maaf, anda belum bisa mengupload kembali makalah. Silahkan selesaikan terlebih dahulu makalah sebelumnya hingga bisa dan siap dipublikasi',
+  ],
 ];

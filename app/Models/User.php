@@ -142,6 +142,17 @@ class User extends Authenticatable
   }
 
   /**
+   * Mengecek apakah status makalah yang di upload oleh user
+   * Jika user masih memiliki makalah yang belum approve maka belum bisa melakukan upload jurnal kedua kalinya
+   *
+   * @return void
+   */
+  public function canUploadJournal()
+  {
+    return $this->journals()->where('is_approved', false)->exists();
+  }
+
+  /**
    * Relation into client model.
    *
    * @return HasOne
@@ -169,5 +180,15 @@ class User extends Authenticatable
   public function journals(): HasMany
   {
     return $this->hasMany(Journal::class, 'user_id');
+  }
+
+  /**
+   * Relation to revision model.
+   *
+   * @return HasMany
+   */
+  public function revisions(): HasMany
+  {
+    return $this->hasMany(Revision::class, 'user_id');
   }
 }

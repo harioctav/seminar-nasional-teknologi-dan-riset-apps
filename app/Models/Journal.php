@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
+use App\Helpers\Global\Constant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,37 @@ class Journal extends Model
   public function getRouteKeyName(): string
   {
     return 'uuid';
+  }
+
+  /**
+   * Get the journal status.
+   *
+   */
+  public function isStatus()
+  {
+    if ($this->status === Constant::DRAFT) :
+      return '<span class="badge text-primary">' . Constant::DRAFT . '</span>';
+    elseif ($this->status === Constant::IN_REVIEW) :
+      return '<span class="badge text-warning">' . Constant::IN_REVIEW . '</span>';
+    elseif ($this->status === Constant::IN_REVISION) :
+      return '<span class="badge text-danger">' . Constant::IN_REVISION . '</span>';
+    else :
+      return '<span class="badge text-success">' . Constant::ACCEPTED . '</span>';
+    endif;
+  }
+
+  /**
+   * Get the journal status approved.
+   *
+   * @return void
+   */
+  public function isApproved()
+  {
+    if (!$this->is_approved) :
+      return '<span class="badge text-warning">' . Constant::UN_PUBLISHED . '</span>';
+    else :
+      return '<span class="badge text-success">' . Constant::PUBLISHED . '</span>';
+    endif;
   }
 
   /**

@@ -39,10 +39,12 @@ class JournalDataTable extends DataTable
       ->addColumn('user_name', function ($row) {
         return $row->user->name;
       })
-      ->addColumn('action', 'journals.journals.action');
-    // ->rawColumns([
-    //   'action',
-    // ]);
+      ->editColumn('status', fn ($row) => $row->isApproved())
+      ->addColumn('action', 'journals.journals.action')
+      ->rawColumns([
+        'action',
+        'status',
+      ]);
   }
 
   /**
@@ -90,7 +92,7 @@ class JournalDataTable extends DataTable
         ->searchable(false)
         ->width('10%')
         ->addClass('text-center'),
-      Column::make('title')
+      Column::make('excerpt')
         ->title(trans('Judul'))
         ->addClass('text-center'),
       Column::make('user_name')

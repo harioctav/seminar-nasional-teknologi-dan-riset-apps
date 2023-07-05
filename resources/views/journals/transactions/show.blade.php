@@ -63,40 +63,43 @@
 
           <input type="hidden" name="uuid" id="uuid" value="{{ $transaction->uuid }}">
 
-          <div class="text-center">
-            <div class="mb-4">
-              <label class="form-label">{{ trans('Pilih Status') }}</label>
-              <div class="space-x-2">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" id="status-pending" name="status" value="{{ Constant::PENDING }}" {{ $transaction->status === Constant::PENDING ? 'checked' : '' }}>
-                  <label class="form-check-label text-primary" for="status-pending">{{ Constant::PENDING }}</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" id="status-approved" name="status" value="{{ Constant::APPROVED }}" {{ $transaction->status === Constant::APPROVED ? 'checked' : '' }}>
-                  <label class="form-check-label text-success" for="status-approved">{{ Constant::APPROVED }}</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" id="status-rejected" name="status" value="{{ Constant::REJECTED }}" {{ $transaction->status === Constant::REJECTED ? 'checked' : '' }}>
-                  <label class="form-check-label text-danger" for="status-rejected">{{ Constant::REJECTED }}</label>
+          @if ($transaction->status === Constant::PENDING)
+            <div class="text-center">
+              <div class="mb-4">
+                <label class="form-label">{{ trans('Pilih Status') }}</label>
+                <div class="space-x-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="status-pending" name="status" value="{{ Constant::PENDING }}" {{ $transaction->status === Constant::PENDING ? 'checked' : '' }}>
+                    <label class="form-check-label text-primary" for="status-pending">{{ Constant::PENDING }}</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="status-approved" name="status" value="{{ Constant::APPROVED }}" {{ $transaction->status === Constant::APPROVED ? 'checked' : '' }}>
+                    <label class="form-check-label text-success" for="status-approved">{{ Constant::APPROVED }}</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="status-rejected" name="status" value="{{ Constant::REJECTED }}" {{ $transaction->status === Constant::REJECTED ? 'checked' : '' }}>
+                    <label class="form-check-label text-danger" for="status-rejected">{{ Constant::REJECTED }}</label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="mb-4" id="reason-area" style="display: none;">
-            <label for="reason" class="form-label">{{ trans('Alasan') }} <em>(Jika Ditolak)</em></label>
-            <textarea name="reason" id="reason" cols="30" rows="4" class="form-control @error('reason') is-invalid @enderror">{{ old('reason', $transaction->reason) }}</textarea>
-            @error('reason')
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
+            <div class="mb-4" id="reason-area" style="display: none;">
+              <label for="reason" class="form-label">{{ trans('Alasan') }} <em>(Jika Ditolak)</em></label>
+              <textarea name="reason" id="reason" cols="30" rows="4" class="form-control @error('reason') is-invalid @enderror">{{ old('reason', $transaction->reason) }}</textarea>
+              @error('reason')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
 
-          <div class="mb-4">
-            <button type="submit" class="btn btn-primary w-100" id="submit-button">
-              <i class="fa fa-fw fa-circle-check opacity-50 me-1"></i>
-              {{ trans('page.button.edit') }}
-            </button>
-          </div>
+            <div class="mb-4">
+              <button type="submit" class="btn btn-primary w-100" id="submit-button">
+                <i class="fa fa-fw fa-circle-check opacity-50 me-1"></i>
+                {{ trans('page.button.edit') }}
+              </button>
+            </div>
+          @endif
+
         @endif
 
       </div>

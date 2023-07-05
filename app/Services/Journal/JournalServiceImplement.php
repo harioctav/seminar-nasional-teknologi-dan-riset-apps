@@ -46,10 +46,11 @@ class JournalServiceImplement extends Service implements JournalService
     try {
       // Manajamen file
       if ($request->file('file')) :
-        $file = Storage::putFile('public/pdf/journals', $request->file('file'));
+        $file = Storage::putFile('public/journals', $request->file('file'));
       endif;
 
       $validation = $request->validated();
+      $validation['title'] = strtoupper($request->title);
       $validation['file'] = $file;
       $validation['excerpt'] = Str::limit(strip_tags($request->title), 30, '...');
       $validation['upload_year'] = $request->upload_year;

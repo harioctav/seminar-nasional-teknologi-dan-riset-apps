@@ -30,9 +30,12 @@ class Constant
   public const CLOSE = 'Close';
 
   public const DRAFT = 'Draft';
-  public const IN_REVISION = 'In Revision';
   public const IN_REVIEW = 'In Review';
+  public const IN_REVISION = 'In Revision';
   public const ACCEPTED = 'Accepted';
+
+  public const PUBLISHED = 'Diterbitkan';
+  public const UN_PUBLISHED = 'Belum Diterbitkan';
 
   // Method
   public const POST = 'POST';

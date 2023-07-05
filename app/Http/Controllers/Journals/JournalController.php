@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Journal\JournalService;
 use App\DataTables\Journals\JournalDataTable;
 use App\Http\Requests\Journals\JorunalRequest;
+use App\Services\User\UserService;
 
 class JournalController extends Controller
 {
@@ -18,6 +19,7 @@ class JournalController extends Controller
    * @return void
    */
   public function __construct(
+    protected UserService $userService,
     protected JournalService $journalService,
   ) {
     # code...
@@ -45,6 +47,10 @@ class JournalController extends Controller
     if (isRoleName() === Constant::PARTICIPANT)
       abort(403, trans('error.403'));
 
+    $user = $this->userService->findOrFail(me()->id);
+    if ($user->canUploadJournal())
+      return redirect()->back()->with('error', trans('session.journals.can_upload'));
+
     return view('journals.journals.create');
   }
 
@@ -62,7 +68,7 @@ class JournalController extends Controller
    */
   public function show(Journal $journal)
   {
-    //
+    return view('journals.journals.show', compact('journal'));
   }
 
   /**
@@ -70,7 +76,7 @@ class JournalController extends Controller
    */
   public function edit(Journal $journal)
   {
-    //
+    return view('journals.journals.edit', compact('journal'));
   }
 
   /**

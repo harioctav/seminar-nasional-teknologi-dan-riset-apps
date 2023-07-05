@@ -16,10 +16,12 @@
       <div class="block-options">
         @if (isRoleName() !== Constant::ADMIN && isRoleName() !== Constant::REVIEWER)
           @can('journals.create')
-            <a href="{{ route('journals.create') }}" class="btn btn-sm btn-primary">
-              <i class="fa fa-plus fa-xs me-1"></i>
-              {{ trans('page.journals.create') }}
-            </a>
+            @if (!auth()->user()->canUploadJournal())
+              <a href="{{ route('journals.create') }}" class="btn btn-sm btn-primary">
+                <i class="fa fa-plus fa-xs me-1"></i>
+                {{ trans('page.journals.create') }}
+              </a>
+            @endif
           @endcan
         @endif
       </div>
