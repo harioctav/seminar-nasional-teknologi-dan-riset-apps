@@ -65,4 +65,23 @@ class JournalServiceImplement extends Service implements JournalService
     DB::commit();
     return $return;
   }
+
+  public function handleDeleteJournal($journal)
+  {
+    DB::beginTransaction();
+    try {
+      // Handle delete image.
+      if ($journal->file) :
+        Storage::delete($journal->file);
+      endif;
+
+      $return = $this->mainRepository->delete($journal->id);
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
 }

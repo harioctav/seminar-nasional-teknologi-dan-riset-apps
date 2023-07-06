@@ -8,4 +8,5 @@ interface JournalService extends BaseService
 {
   public function sortByUserId();
   public function handleUploadJournal($request);
+  public function handleDeleteJournal($journal);
 }

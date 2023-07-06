@@ -92,6 +92,9 @@ class JournalController extends Controller
    */
   public function destroy(Journal $journal)
   {
-    //
+    $this->journalService->handleDeleteJournal($journal);
+    return response()->json([
+      'message' => trans('session.delete'),
+    ]);
   }
 }
