@@ -4,14 +4,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Journals\JournalController;
-use App\Http\Controllers\Journals\RegistrationController;
-use App\Http\Controllers\Journals\TransactionController;
+use App\Http\Controllers\Users\ClientController;
 use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UserController;
-use App\Http\Controllers\Settings\PasswordController;
+use App\Http\Controllers\Journals\JournalController;
 use App\Http\Controllers\Settings\PaymentController;
-use App\Http\Controllers\Users\ClientController;
+use App\Http\Controllers\Settings\PasswordController;
+use App\Http\Controllers\Journals\TransactionController;
+use App\Http\Controllers\Journals\RegistrationController;
+use App\Http\Controllers\Submissions\SelectReviewerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,9 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::resource('journals', JournalController::class);
     Route::resource('transactions', TransactionController::class)->except('edit');
     Route::resource('registrations', RegistrationController::class)->except('show');
+  });
+
+  Route::prefix('submissions')->group(function () {
+    Route::resource('select-reviewers', SelectReviewerController::class)->only('store');
   });
 });

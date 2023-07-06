@@ -9,6 +9,7 @@ use App\Models\Client;
 
 interface UserService extends BaseService
 {
+  public function getReviewerOnly();
   public function getUserExceptAdmin();
   public function handleChangeStatus(int $id);
   public function handleRegisterUsers(Request $request);

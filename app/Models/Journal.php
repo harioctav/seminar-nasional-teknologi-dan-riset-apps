@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Uuid;
 use App\Helpers\Global\Constant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -75,5 +76,15 @@ class Journal extends Model
   public function user(): BelongsTo
   {
     return $this->belongsTo(User::class, 'user_id');
+  }
+
+  /**
+   * Relation to Select Reviewer model.
+   *
+   * @return HasOne
+   */
+  public function selectReviewer(): HasOne
+  {
+    return $this->hasOne(SelectReviewer::class, 'journal_id');
   }
 }

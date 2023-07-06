@@ -205,7 +205,7 @@
         'jq-select2',
         'jq-magnific-popup',
         'jq-datepicker',
-        'js-flatpickr'
+        'js-flatpickr',
       ])
     </script>
 

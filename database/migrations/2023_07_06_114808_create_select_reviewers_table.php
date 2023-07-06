@@ -11,10 +11,13 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('revisions', function (Blueprint $table) {
+    Schema::create('select_reviewers', function (Blueprint $table) {
       $table->id();
       $table->string('uuid');
-      $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
+      $table->foreignId('user_id')->constrained()->onDelete('cascade'); // User id for select reviewer
+      $table->foreignId('journal_id')->constrained()->onDelete('cascade');
+      $table->string('select_by');
+      $table->date('select_date');
       $table->timestamps();
     });
   }
@@ -24,6 +27,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('revisions');
+    Schema::dropIfExists('select_reviewers');
   }
 };

@@ -119,6 +119,19 @@ class User extends Authenticatable
   }
 
   /**
+   * Scope a query to only include active users.
+   */
+  public function scopeActive($data)
+  {
+    return $data->where('status', Constant::ACTIVE);
+  }
+
+  public function getActive(): Collection
+  {
+    return $this->active()->get();
+  }
+
+  /**
    * Scope a query to only include inactive users.
    */
   public function scopeInactive($data)
@@ -183,12 +196,12 @@ class User extends Authenticatable
   }
 
   /**
-   * Relation to revision model.
+   * Relation to reviewers model.
    *
-   * @return HasMany
+   * @return HasOne
    */
-  public function revisions(): HasMany
+  public function selectReviewer(): HasOne
   {
-    return $this->hasMany(Revision::class, 'user_id');
+    return $this->hasOne(SelectReviewer::class, 'user_id');
   }
 }

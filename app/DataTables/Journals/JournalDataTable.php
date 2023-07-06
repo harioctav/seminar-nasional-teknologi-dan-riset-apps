@@ -8,6 +8,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\EloquentDataTable;
 use App\Services\Journal\JournalService;
+use App\Services\User\UserService;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
@@ -22,6 +23,7 @@ class JournalDataTable extends DataTable
    * @return void
    */
   public function __construct(
+    protected UserService $userService,
     protected JournalService $journalService,
   ) {
     # code...
@@ -34,16 +36,26 @@ class JournalDataTable extends DataTable
    */
   public function dataTable(QueryBuilder $query): EloquentDataTable
   {
+    $users = $this->userService->getReviewerOnly()->get();
+
     return (new EloquentDataTable($query))
       ->addIndexColumn()
       ->addColumn('user_name', function ($row) {
         return $row->user->name;
       })
       ->editColumn('status', fn ($row) => $row->isApproved())
+      ->addColumn('select', function ($row) use ($users) {
+        if ($row->selectReviewer) {
+          return $row->selectReviewer->user->name;
+        } else {
+          return view('journals.journals.select-reviewer', compact('users', 'row'))->render();
+        }
+      })
       ->addColumn('action', 'journals.journals.action')
       ->rawColumns([
         'action',
         'status',
+        'select',
       ]);
   }
 
@@ -90,7 +102,7 @@ class JournalDataTable extends DataTable
         ->title(trans('#'))
         ->orderable(false)
         ->searchable(false)
-        ->width('10%')
+        ->width('5%')
         ->addClass('text-center'),
       Column::make('excerpt')
         ->title(trans('Judul'))
@@ -104,10 +116,14 @@ class JournalDataTable extends DataTable
       Column::make('status')
         ->title(trans('Status'))
         ->addClass('text-center'),
+      Column::make('select')
+        ->title(trans('Reviewer'))
+        ->visible(isRoleName() === Constant::ADMIN ? true : false)
+        ->addClass('text-center'),
       Column::computed('action')
         ->exportable(false)
         ->printable(false)
-        ->width('15%')
+        ->width('10%')
         ->addClass('text-center'),
     ];
   }

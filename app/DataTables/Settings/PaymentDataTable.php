@@ -28,6 +28,7 @@ class PaymentDataTable extends DataTable
         return $row->isStatus();
       })
       ->addColumn('bank_name', fn ($row) => $row->bank->name)
+      ->addColumn('bank_code', fn ($row) => str_pad($row->bank->code, 3, '0', STR_PAD_LEFT))
       ->addColumn('edit_status', 'settings.payments.status')
       ->addColumn('action', 'settings.payments.action')
       ->rawColumns([
@@ -93,6 +94,9 @@ class PaymentDataTable extends DataTable
         ->orderable(false)
         ->searchable(false)
         ->width('10%')
+        ->addClass('text-center'),
+      Column::make('bank_code')
+        ->title(trans('Kode Bank'))
         ->addClass('text-center'),
       Column::make('bank_name')
         ->title(trans('Nama Bank'))

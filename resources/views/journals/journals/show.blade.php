@@ -57,6 +57,14 @@
             </a>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ trans('Direview Oleh') }}
+            @if($journal->selectReviewer)
+              <span class="fw-semibold">{{ $journal->selectReviewer->user->name }}</span>
+            @else
+              <span class="fw-semibold">{{ trans('Belum Memilih Reviewer') }}</span>
+            @endif
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
             {{ trans('Status') }}
             <span class="fw-semibold">{!! $journal->isApproved() !!}</span>
           </li>
