@@ -1,3 +1,4 @@
+{{-- @dd($journal->comments()->paginate(2)) --}}
 @extends('layouts.app')
 @section('title') {{ trans('page.journals.title') }} @endsection
 @section('hero')
@@ -50,7 +51,7 @@
             <span class="fw-semibold">{{ $journal->upload_year }}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ trans('File') }}
+            {{ trans('Original File') }}
             <a href="{{ Storage::url($journal->file) }}" target="_blank">
               <i class="fa fa-xs fa-eye me-1"></i>
               {{ trans('Lihat Makalah') }}
@@ -111,7 +112,7 @@
     </div>
 
     @if($journal->selectReviewer)
-      <div class="block block-rounded">
+      <div class="block block-rounded mb-0">
         <div class="block-header block-header-default">
           <h3 class="block-title">
             {{ trans('Reviews') }}
@@ -119,7 +120,7 @@
         </div>
         <div class="block-content block-content-full">
 
-          @forelse ($journal->comments as $comment)
+          @forelse ($journal->comments()->paginate(2) as $comment)
             <div class="pull-x fs-sm mx-2">
               <div class="d-flex push">
                 <div class="flex-shrink-0 me-3">
@@ -137,7 +138,6 @@
                   @if($comment->user_id == me()->id)
                     <a class="me-1" href="#" onclick="deleteComment(`{{ route('comments.destroy', $comment->uuid) }}`)" class="text-danger me-2">{{ trans('Hapus') }}</a>
                   @endif
-                  {{-- <a class="me-1" href="javascript:void(0)">{{ trans('Delete') }}</a> --}}
                   <span class="text-muted"><em>{{ $comment->created_at->diffForHumans() }}</em></span>
                 </div>
               </div>
@@ -147,6 +147,10 @@
               <em>{{ trans('Belum Ada Komentar atau Review') }}</em>
             </p>
           @endforelse
+
+          <div class="text-center">
+            {{ $journal->comments()->paginate(2)->links('pagination::bootstrap-5') }}
+          </div>
 
           @if (isRoleName() !== Constant::ADMIN)
             @if(isRoleName() === Constant::REVIEWER)
