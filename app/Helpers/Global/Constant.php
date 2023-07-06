@@ -30,8 +30,8 @@ class Constant
   public const CLOSE = 'Close';
 
   public const DRAFT = 'Draft';
-  public const IN_REVIEW = 'In Review';
-  public const IN_REVISION = 'In Revision';
+  public const IN_REVIEW = 'Sedang Review';
+  public const IN_REVISION = 'Perlu Revisi';
   public const ACCEPTED = 'Accepted';
 
   public const PUBLISHED = 'Diterbitkan';

@@ -51,6 +51,8 @@ class RoleSeeder extends Seeder
         ->orWhere('name', 'LIKE', 'journals.show')
         ->orWhere('name', 'LIKE', 'journals.edit')
         ->orWhere('name', 'LIKE', 'journals.update')
+        ->orWhere('name', 'LIKE', 'comments.store')
+        ->orWhere('name', 'LIKE', 'comments.destroy')
         ->get()
     );
 
@@ -59,6 +61,10 @@ class RoleSeeder extends Seeder
       Permission::where('name', 'LIKE', 'users.show')
         ->orWhere('name', 'LIKE', 'users.update')
         ->orWhere('name', 'LIKE', 'users.password')
+        ->orWhere('name', 'LIKE', 'journals.index')
+        ->orWhere('name', 'LIKE', 'journals.show')
+        ->orWhere('name', 'LIKE', 'comments.store')
+        ->orWhere('name', 'LIKE', 'comments.destroy')
         ->get()
     );
 

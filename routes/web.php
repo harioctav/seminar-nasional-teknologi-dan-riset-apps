@@ -12,6 +12,7 @@ use App\Http\Controllers\Settings\PaymentController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Journals\TransactionController;
 use App\Http\Controllers\Journals\RegistrationController;
+use App\Http\Controllers\Submissions\CommentController;
 use App\Http\Controllers\Submissions\SelectReviewerController;
 
 /*
@@ -65,5 +66,8 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
 
   Route::prefix('submissions')->group(function () {
     Route::resource('select-reviewers', SelectReviewerController::class)->only('store');
+
+    // Comments
+    Route::resource('comments', CommentController::class);
   });
 });

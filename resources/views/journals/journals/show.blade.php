@@ -57,21 +57,239 @@
             </a>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ trans('Direview Oleh') }}
-            @if($journal->selectReviewer)
-              <span class="fw-semibold">{{ $journal->selectReviewer->user->name }}</span>
-            @else
-              <span class="fw-semibold">{{ trans('Belum Memilih Reviewer') }}</span>
-            @endif
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
             {{ trans('Status') }}
             <span class="fw-semibold">{!! $journal->isApproved() !!}</span>
           </li>
         </ul>
       </div>
+      <div class="col-6">
+        @if($journal->selectReviewer)
+          <div class="block block-rounded">
+            <div class="block-content block-content-full">
+              <h6 class="h6 mb-3 text-center">
+                {{ trans('Detail Reviewer') }}
+              </h6>
+              <ul class="nav-items push">
+                <li>
+                  <div class="d-flex py-3">
+                    <div class="flex-shrink-0 me-3 ms-2 overlay-container overlay-bottom">
+                      <img class="img-avatar img-avatar48" src="{{ $journal->selectReviewer->user->getAvatar() }}" alt="">
+                    </div>
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">{{ $journal->selectReviewer->user->name }}</div>
+                      <div class="fs-sm text-muted">{{ $journal->selectReviewer->user->email }}</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <ul class="list-group push">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ trans('Nomor Telepon') }}
+                  <span class="fw-semibold">{{ $journal->selectReviewer->user->phone }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ trans('Tanggal Dipilih') }}
+                  <span class="fw-semibold">{{ Helper::customDate($journal->selectReviewer->select_date) }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ trans('Dipilih Oleh') }}
+                  <span class="fw-semibold">{{ $journal->selectReviewer->select_by }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        @else
+          <div class="block block-rounded">
+            <div class="block-content block-content-full">
+              <h6 class="h6 mb-3 text-center">
+                {{ trans('Jurnal Belum Memiliki Pereview, Silahkan pilih dahulu atau hubungi Admin') }}
+              </h6>
+            </div>
+          </div>
+        @endif
+      </div>
     </div>
+
+    @if($journal->selectReviewer)
+      <div class="block block-rounded">
+        <div class="block-header block-header-default">
+          <h3 class="block-title">
+            {{ trans('Reviews') }}
+          </h3>
+        </div>
+        <div class="block-content block-content-full">
+
+          @forelse ($journal->comments as $comment)
+            <div class="pull-x fs-sm mx-2">
+              <div class="d-flex push">
+                <div class="flex-shrink-0 me-3">
+                  <img class="img-avatar img-avatar32" src="{{ $comment->user->getAvatar() }}" alt="">
+                </div>
+                <div class="flex-grow-1">
+                  <span class="fw-semibold">{{ $comment->user->name }}</span>
+                  <mark class="fw-semibold {{ $comment->user->isRoleName() === Constant::REVIEWER ? 'text-danger' : 'text-success' }}">{{ $comment->user->isRoleName() }}</mark>
+                  <p class="my-1">
+                    <p class="my-1">{!! $comment->comment !!}</p>
+                  </p>
+                  @if($comment->file_revision)
+                    <a class="me-1" target="__blank" href="{{ Storage::url($comment->file_revision) }}">{{ trans('Dokumen') }}</a>
+                  @endif
+                  @if($comment->user_id == me()->id)
+                    <a class="me-1" href="#" onclick="deleteComment(`{{ route('comments.destroy', $comment->uuid) }}`)" class="text-danger me-2">{{ trans('Hapus') }}</a>
+                  @endif
+                  {{-- <a class="me-1" href="javascript:void(0)">{{ trans('Delete') }}</a> --}}
+                  <span class="text-muted"><em>{{ $comment->created_at->diffForHumans() }}</em></span>
+                </div>
+              </div>
+            </div>
+          @empty
+            <p class="mb-5 text-center">
+              <em>{{ trans('Belum Ada Komentar atau Review') }}</em>
+            </p>
+          @endforelse
+
+          @if (isRoleName() !== Constant::ADMIN)
+            @if(isRoleName() === Constant::REVIEWER)
+              @if($journal->selectReviewer->user->id == me()->id)
+                <form action="{{ route('comments.store') }}" method="POST" onsubmit="return disableSubmitButton()" enctype="multipart/form-data">
+                  @csrf
+      
+                  <input type="hidden" name="journal_id" value="{{ $journal->id }}" readonly>
+                  <input type="hidden" name="journal_uuid" value="{{ $journal->uuid }}" readonly>
+                  <input type="hidden" name="user_id" value="{{ me()->id }}" readonly>
+      
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label for="file_revision" class="form-label">{{ __('Upload File Revisi') }} <em>(Opsional)</em></label>
+                        <input type="file" accept="application/pdf" name="file_revision" id="file_revision" class="form-control @error('file') is-invalid @enderror">
+                        <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
+                        @error('file_revision')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="mb-3">
+                    <label for="js-ckeditor" class="form-label">{{ trans('Komentar Anda') }} <em>(Untuk Revisi)</em></label>
+                    <textarea id="js-ckeditor" name="comment">{{ old('comment') }}</textarea>
+                    @error('comment')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100" id="submit-button">
+                          <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i>
+                          {{ trans('Kirim Komentar') }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+      
+                </form>
+              @endif
+            @endif
+
+            @if(isRoleName() === Constant::PEMAKALAH)
+              @if($journal->user_id == me()->id)
+                <form action="{{ route('comments.store') }}" method="POST" onsubmit="return disableSubmitButton()" enctype="multipart/form-data">
+                  @csrf
+      
+                  <input type="hidden" name="journal_id" value="{{ $journal->id }}" readonly>
+                  <input type="hidden" name="journal_uuid" value="{{ $journal->uuid }}" readonly>
+                  <input type="hidden" name="user_id" value="{{ me()->id }}" readonly>
+      
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label for="file_revision" class="form-label">{{ __('Upload File Revisi') }} <em>(Opsional)</em></label>
+                        <input type="file" accept="application/pdf" name="file_revision" id="file_revision" class="form-control @error('file') is-invalid @enderror">
+                        <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
+                        @error('file_revision')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="mb-3">
+                    <label for="js-ckeditor" class="form-label">{{ trans('Komentar Anda') }} <em>(Untuk Revisi)</em></label>
+                    <textarea id="js-ckeditor" name="comment">{{ old('comment') }}</textarea>
+                    @error('comment')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100" id="submit-button">
+                          <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i>
+                          {{ trans('Kirim Komentar') }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+      
+                </form>
+              @endif
+            @endif
+          @endif
+
+        </div>
+      </div>
+    @endif
 
   </div>
 </div>
 @endsection
+@push('javascript')
+  <script>
+    function deleteComment(url) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Apakah Anda Yakin?',
+        html: 'Dengan menekan tombol hapus, Maka <b>Semua Data</b> akan hilang!',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus Data',
+        cancelButtonText: 'Batalkan',
+        cancelButtonColor: '#E74C3C',
+        confirmButtonColor: '#3498DB'
+      }).then((result) => {
+        if (result.value) {
+          $.post(url, {
+            '_token': $('[name=csrf-token]').attr('content'),
+            '_method': 'delete'
+          })
+          .done((response) => {
+            Swal.fire({
+              icon: 'success',
+              title: response.message,
+              confirmButtonText: 'Selesai'
+            })
+            location.reload()
+          })
+          .fail((errors) => {
+            Swal.fire({
+              icon: 'error',
+              title: errors.responseJSON.message,
+              confirmButtonText: 'Mengerti'
+            })
+            return
+          })
+        } else if (result.dismiss == swal.DismissReason.cancel) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Tidak ada perubahan disimpan',
+            confirmButtonText: 'Mengerti',
+            confirmButtonColor: '#3498DB'
+          })
+        }
+      })
+    }
+  </script>
+@endpush

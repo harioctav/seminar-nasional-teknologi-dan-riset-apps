@@ -105,6 +105,7 @@
     <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/magnific-popup/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/simplemde/simplemde.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/src/css/oneui.min.css') }}" id="css-main">
 
     <!-- Datatables -->
@@ -198,6 +199,7 @@
 
     <!-- Page JS Code -->
     <script src="{{ asset('assets/src/js/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('assets/src/js/plugins/simplemde/simplemde.min.js') }}"></script>
     <script src="{{ asset('assets/src/js/pages/be_tables_datatables.min.js') }}"></script>
     <script src="{{ asset('assets/src/js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
@@ -206,6 +208,8 @@
         'jq-magnific-popup',
         'jq-datepicker',
         'js-flatpickr',
+        'js-ckeditor',
+        'js-simplemde'
       ])
     </script>
 

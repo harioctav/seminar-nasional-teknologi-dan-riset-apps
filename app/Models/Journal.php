@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Journal extends Model
 {
@@ -68,5 +69,15 @@ class Journal extends Model
   public function selectReviewer(): HasOne
   {
     return $this->hasOne(SelectReviewer::class, 'journal_id');
+  }
+
+  /**
+   * Relation to comment model.
+   *
+   * @return HasMany
+   */
+  public function comments(): HasMany
+  {
+    return $this->hasMany(Comment::class, 'journal_id');
   }
 }

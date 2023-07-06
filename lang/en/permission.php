@@ -78,4 +78,15 @@ return [
     'update' => 'Memperbarui Makalah',
     'destroy' => 'Menghapus Makalah',
   ],
+
+  'comments' => [
+    'name' => 'Management Komentar',
+    'index' => 'List Komentar',
+    'create' => 'Formulir Tambah Komentar',
+    'store' => 'Menambahkan Komentar',
+    'show' => 'Detail Komentar',
+    'edit' => 'Formulir Ubah Komentar',
+    'update' => 'Memperbarui Komentar',
+    'destroy' => 'Menghapus Komentar',
+  ],
 ];

@@ -14,13 +14,9 @@ class ReviewerSeeder extends Seeder
    */
   public function run(): void
   {
-    User::create([
-      'name' => 'Joko Anwar',
-      'email' => 'reviewer@gmail.com',
-      'phone' => '085798888722',
-      'email_verified_at' => now(),
-      'password' => bcrypt(Constant::DEFAULT_PASSWORD),
-      'status' => Constant::ACTIVE,
-    ])->assignRole(Constant::REVIEWER);
+    for ($i = 1; $i <= 5; $i++) :
+      $reviewers = User::factory()->create();
+      $reviewers->assignRole(Constant::REVIEWER);
+    endfor;
   }
 }

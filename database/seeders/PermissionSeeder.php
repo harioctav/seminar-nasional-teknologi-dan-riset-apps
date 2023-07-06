@@ -367,6 +367,22 @@ class PermissionSeeder extends Seeder
         'created_at' => now(),
         'updated_at' => now(),
       ],
+
+      // Comments
+      [
+        'name' => 'comments.store',
+        'permission_category_id' => 8,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'comments.destroy',
+        'permission_category_id' => 8,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
     ];
 
     $collects = collect($items);

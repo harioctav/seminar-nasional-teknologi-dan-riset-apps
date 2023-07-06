@@ -46,7 +46,7 @@ class JournalServiceImplement extends Service implements JournalService
     try {
       // Manajamen file
       if ($request->file('file')) :
-        $file = Storage::putFile('public/journals', $request->file('file'));
+        $file = Storage::putFile('public/pdf/journals', $request->file('file'));
       endif;
 
       $validation = $request->validated();

@@ -204,4 +204,14 @@ class User extends Authenticatable
   {
     return $this->hasOne(SelectReviewer::class, 'user_id');
   }
+
+  /**
+   * Relation to comments model.
+   *
+   * @return HasMany
+   */
+  public function comments(): HasMany
+  {
+    return $this->hasMany(Comment::class, 'user_id');
+  }
 }

@@ -82,6 +82,14 @@ return [
     'show' => 'Detail Data Makalah',
   ],
 
+  'comments' => [
+    'title' => 'Halaman Komentar',
+    'index' => 'Tabel Data Komentar',
+    'create' => 'Tambah Data Komentar',
+    'edit' => 'Ubah Data Komentar',
+    'show' => 'Detail Data Komentar',
+  ],
+
   'payments' => [
     'title' => 'Halaman Rekening',
     'index' => 'Tabel Data Rekening',
