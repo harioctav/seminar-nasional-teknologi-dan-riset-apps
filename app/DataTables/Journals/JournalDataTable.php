@@ -43,7 +43,7 @@ class JournalDataTable extends DataTable
       ->addColumn('user_name', function ($row) {
         return $row->user->name;
       })
-      ->editColumn('status', fn ($row) => $row->isApproved())
+      ->editColumn('is_approved', fn ($row) => $row->isApproved())
       ->addColumn('select', function ($row) use ($users) {
         if ($row->selectReviewer) {
           return $row->selectReviewer->user->name;
@@ -54,7 +54,7 @@ class JournalDataTable extends DataTable
       ->addColumn('action', 'journals.journals.action')
       ->rawColumns([
         'action',
-        'status',
+        'is_approved',
         'select',
       ]);
   }
@@ -113,7 +113,7 @@ class JournalDataTable extends DataTable
       Column::make('upload_year')
         ->title(trans('Tahun Upload'))
         ->addClass('text-center'),
-      Column::make('status')
+      Column::make('is_approved')
         ->title(trans('Status'))
         ->addClass('text-center'),
       Column::make('select')

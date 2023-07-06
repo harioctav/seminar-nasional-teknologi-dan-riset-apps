@@ -26,7 +26,6 @@ class Journal extends Model
     'abstract',
     'upload_year',
     'file',
-    'status',
   ];
 
   /**
@@ -35,23 +34,6 @@ class Journal extends Model
   public function getRouteKeyName(): string
   {
     return 'uuid';
-  }
-
-  /**
-   * Get the journal status.
-   *
-   */
-  public function isStatus()
-  {
-    if ($this->status === Constant::DRAFT) :
-      return '<span class="badge text-primary">' . Constant::DRAFT . '</span>';
-    elseif ($this->status === Constant::IN_REVIEW) :
-      return '<span class="badge text-warning">' . Constant::IN_REVIEW . '</span>';
-    elseif ($this->status === Constant::IN_REVISION) :
-      return '<span class="badge text-danger">' . Constant::IN_REVISION . '</span>';
-    else :
-      return '<span class="badge text-success">' . Constant::ACCEPTED . '</span>';
-    endif;
   }
 
   /**
