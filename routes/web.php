@@ -69,6 +69,6 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::resource('select-reviewers', SelectReviewerController::class)->only('store');
 
     // Comments
-    Route::resource('comments', CommentController::class);
+    Route::resource('comments', CommentController::class)->only('store', 'destroy');
   });
 });
