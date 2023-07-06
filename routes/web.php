@@ -65,6 +65,7 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
   });
 
   Route::prefix('submissions')->group(function () {
+    // Select Reviewer (Admin Only)
     Route::resource('select-reviewers', SelectReviewerController::class)->only('store');
 
     // Comments
