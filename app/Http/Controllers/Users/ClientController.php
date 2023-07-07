@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Helpers\Global\Constant;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Services\Role\RoleService;
@@ -66,6 +67,10 @@ class ClientController extends Controller
   public function update(ClientRequest $request, Client $client)
   {
     $this->userService->handleUpdateClientUser($client, $request);
+
+    if (isRoleName() === Constant::PEMAKALAH || isRoleName() === Constant::PEMAKALAH)
+      return redirect()->route('users.show', me()->uuid)->withSuccess(trans('session.update'));
+
     return redirect()->route('users.index')->withSuccess(trans('session.update'));
   }
 }

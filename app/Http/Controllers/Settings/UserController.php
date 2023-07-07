@@ -65,6 +65,7 @@ class UserController extends Controller
    */
   public function show(User $user)
   {
+    // dd($user->client);
     # Cek user role
     if (isRoleName() === Constant::PEMAKALAH || isRoleName() === Constant::PARTICIPANT) :
       return view('settings.users.profiles.client', compact('user'));

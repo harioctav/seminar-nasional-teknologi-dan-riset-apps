@@ -39,6 +39,8 @@ class RoleSeeder extends Seeder
       Permission::where('name', 'LIKE', 'users.show')
         ->orWhere('name', 'LIKE', 'users.update')
         ->orWhere('name', 'LIKE', 'users.password')
+        ->orWhere('name', 'LIKE', 'users.image')
+        ->orWhere('name', 'LIKE', 'client.update')
         ->orWhere('name', 'LIKE', 'transactions.index')
         ->orWhere('name', 'LIKE', 'transactions.create')
         ->orWhere('name', 'LIKE', 'transactions.store')

@@ -34,19 +34,19 @@
                 </a>
               </li>
             @endcan
+            @can('journals.index')
+              <li class="nav-main-item">
+                <a class="nav-main-link {{ Request::is('journals/journals*') ? 'active' : '' }}" href="{{ route('journals.index') }}">
+                  <span class="nav-main-link-name">{{ trans('Makalah') }}</span>
+                </a>
+              </li>
+            @endcan
             @can('transactions.index')
             <li class="nav-main-item">
               <a class="nav-main-link {{ Request::is('journals/transactions*') ? 'active' : '' }}" href="{{ route('transactions.index') }}">
                 <span class="nav-main-link-name">{{ trans('Transaksi') }}</span>
               </a>
             </li>
-            @endcan
-            @can('journals.index')
-              <li class="nav-main-item">
-                <a class="nav-main-link {{ Request::is('journals/journals*') ? 'active' : '' }}" href="{{ route('journals.index') }}">
-                  <span class="nav-main-link-name">{{ trans('Upload Makalah') }}</span>
-                </a>
-              </li>
             @endcan
           </ul>
         </li>

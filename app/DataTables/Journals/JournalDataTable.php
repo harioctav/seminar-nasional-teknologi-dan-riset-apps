@@ -36,7 +36,7 @@ class JournalDataTable extends DataTable
    */
   public function dataTable(QueryBuilder $query): EloquentDataTable
   {
-    $users = $this->userService->getReviewerWhereNotSelected()->get();
+    $users = $this->userService->getReviewerOnly()->get();
 
     return (new EloquentDataTable($query))
       ->addIndexColumn()
