@@ -27,6 +27,8 @@ class Journal extends Model
     'abstract',
     'upload_year',
     'file',
+    'is_approved',
+    'status',
   ];
 
   /**
@@ -48,6 +50,22 @@ class Journal extends Model
       return '<span class="badge text-warning">' . Constant::UN_PUBLISHED . '</span>';
     else :
       return '<span class="badge text-success">' . Constant::PUBLISHED . '</span>';
+    endif;
+  }
+
+  /**
+   * Get the journal status Review.
+   *
+   * @return void
+   */
+  public function isStatus()
+  {
+    if ($this->status === Constant::DRAFT) :
+      return '<span class="badge text-info">' . Constant::DRAFT . '</span>';
+    elseif ($this->status === Constant::IN_REVISION) :
+      return '<span class="badge text-warning">' . Constant::IN_REVISION . '</span>';
+    else :
+      return '<span class="badge text-success">' . Constant::READY_PUBLISH . '</span>';
     endif;
   }
 

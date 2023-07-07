@@ -1,6 +1,6 @@
 <button type="button" class="btn btn-alt-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-select-reviewer">{{ trans('Pilih Reviewer') }}</button>
 
-<div class="modal fade" id="modal-select-reviewer" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin" aria-hidden="true">
+<div class="modal fade" id="modal-select-reviewer" tabindex="-1" role="dialog" aria-labelledby="modal-select-reviewer" aria-hidden="true">
   <div class="modal-dialog modal-dialog-popin" role="document">
     <div class="modal-content">
       <form action="{{ route('select-reviewers.store') }}" method="POST" onsubmit="return disableSubmitButton()">

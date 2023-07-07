@@ -209,7 +209,7 @@
         'jq-datepicker',
         'js-flatpickr',
         'js-ckeditor',
-        'js-simplemde'
+        'js-simplemde',
       ])
     </script>
 

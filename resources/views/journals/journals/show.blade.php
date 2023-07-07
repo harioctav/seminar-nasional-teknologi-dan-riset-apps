@@ -58,7 +58,11 @@
             </a>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ trans('Status') }}
+            {{ trans('Status Revisi') }}
+            <span class="fw-semibold">{!! $journal->isStatus() !!}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ trans('Status Publikasi') }}
             <span class="fw-semibold">{!! $journal->isApproved() !!}</span>
           </li>
         </ul>
@@ -138,6 +142,7 @@
                   @if($comment->user_id == me()->id)
                     <a class="me-1" href="#" onclick="deleteComment(`{{ route('comments.destroy', $comment->uuid) }}`)" class="text-danger me-2">{{ trans('Hapus') }}</a>
                   @endif
+                  <span class="text-muted"><em>Komentar diupload pada </em></span>
                   <span class="text-muted"><em>{{ $comment->created_at->diffForHumans() }}</em></span>
                 </div>
               </div>
@@ -153,94 +158,117 @@
           </div>
 
           @if (isRoleName() !== Constant::ADMIN)
-            @if(isRoleName() === Constant::REVIEWER)
-              @if($journal->selectReviewer->user->id == me()->id)
-                <form action="{{ route('comments.store') }}" method="POST" onsubmit="return disableSubmitButton()" enctype="multipart/form-data">
-                  @csrf
-      
-                  <input type="hidden" name="journal_id" value="{{ $journal->id }}" readonly>
-                  <input type="hidden" name="journal_uuid" value="{{ $journal->uuid }}" readonly>
-                  <input type="hidden" name="user_id" value="{{ me()->id }}" readonly>
-      
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label for="file_revision" class="form-label">{{ __('Upload File Revisi') }} <em>(Opsional)</em></label>
-                        <input type="file" accept="application/pdf" name="file_revision" id="file_revision" class="form-control @error('file') is-invalid @enderror">
-                        <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
-                        @error('file_revision')
-                          <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                      </div>
-                    </div>
-                  </div>
-      
-                  <div class="mb-3">
-                    <label for="js-ckeditor" class="form-label">{{ trans('Komentar Anda') }} <em>(Untuk Revisi)</em></label>
-                    <textarea id="js-ckeditor" name="comment">{{ old('comment') }}</textarea>
-                    @error('comment')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                  </div>
-      
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <button type="submit" class="btn btn-primary w-100" id="submit-button">
-                          <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i>
-                          {{ trans('Kirim Komentar') }}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-      
-                </form>
-              @endif
-            @endif
+            @if(!$journal->status === Constant::READY_PUBLISH)
+              
+              @if(isRoleName() === Constant::REVIEWER)
+                @if($journal->selectReviewer->user->id == me()->id)
+                  <form action="{{ route('comments.store') }}" method="POST" onsubmit="return disableSubmitButton()" enctype="multipart/form-data">
+                    @csrf
+        
+                    <input type="hidden" name="journal_id" value="{{ $journal->id }}" readonly>
+                    <input type="hidden" name="journal_uuid" value="{{ $journal->uuid }}" readonly>
+                    <input type="hidden" name="user_id" value="{{ me()->id }}" readonly>
 
-            @if(isRoleName() === Constant::PEMAKALAH)
-              @if($journal->user_id == me()->id)
-                <form action="{{ route('comments.store') }}" method="POST" onsubmit="return disableSubmitButton()" enctype="multipart/form-data">
-                  @csrf
-      
-                  <input type="hidden" name="journal_id" value="{{ $journal->id }}" readonly>
-                  <input type="hidden" name="journal_uuid" value="{{ $journal->uuid }}" readonly>
-                  <input type="hidden" name="user_id" value="{{ me()->id }}" readonly>
-      
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <label for="file_revision" class="form-label">{{ __('Upload File Revisi') }} <em>(Opsional)</em></label>
-                        <input type="file" accept="application/pdf" name="file_revision" id="file_revision" class="form-control @error('file') is-invalid @enderror">
-                        <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
-                        @error('file_revision')
-                          <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="mb-4">
+                      <label class="form-label">{{ trans('Pilih Status Revisi') }}</label>
+                      <div class="space-x-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" id="status-draft" name="status" value="{{ Constant::DRAFT }}" {{ $journal->status === Constant::DRAFT ? 'checked' : '' }}>
+                          <label class="form-check-label text-primary" for="status-draft">{{ Constant::DRAFT }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" id="status-in-revision" name="status" value="{{ Constant::IN_REVISION }}" {{ $journal->status === Constant::IN_REVISION ? 'checked' : '' }}>
+                          <label class="form-check-label text-warning" for="status-in-revision">{{ Constant::IN_REVISION }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" id="status-ready-publish" name="status" value="{{ Constant::READY_PUBLISH }}" {{ $journal->status === Constant::READY_PUBLISH ? 'checked' : '' }}>
+                          <label class="form-check-label text-success" for="status-ready-publish">{{ Constant::READY_PUBLISH }}</label>
+                        </div>
+                      </div>
+                      <small class="text-muted">{{ trans('Jika ada perubahan pada status revisi di jurnal, anda bisa memilih pilihan di atas') }}</small>
+                    </div>
+        
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <label for="file_revision" class="form-label">{{ __('Upload File Revisi') }} <em>(Opsional)</em></label>
+                          <input type="file" accept="application/pdf" name="file_revision" id="file_revision" class="form-control @error('file') is-invalid @enderror">
+                          <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
+                          @error('file_revision')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
                       </div>
                     </div>
-                  </div>
-      
-                  <div class="mb-3">
-                    <label for="js-ckeditor" class="form-label">{{ trans('Komentar Anda') }} <em>(Untuk Revisi)</em></label>
-                    <textarea id="js-ckeditor" name="comment">{{ old('comment') }}</textarea>
-                    @error('comment')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                  </div>
-      
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="mb-3">
-                        <button type="submit" class="btn btn-primary w-100" id="submit-button">
-                          <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i>
-                          {{ trans('Kirim Komentar') }}
-                        </button>
+        
+                    <div class="mb-3">
+                      <label for="js-ckeditor" class="form-label">{{ trans('Komentar Anda') }} <em>(Untuk Revisi)</em></label>
+                      <textarea id="js-ckeditor" name="comment">{{ old('comment') }}</textarea>
+                      @error('comment')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+        
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <button type="submit" class="btn btn-primary w-100" id="submit-button">
+                            <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i>
+                            {{ trans('Kirim Komentar') }}
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-      
-                </form>
+        
+                  </form>
+                @endif
               @endif
+
+              @if(isRoleName() === Constant::PEMAKALAH)
+                @if($journal->user_id == me()->id)
+                  <form action="{{ route('comments.store') }}" method="POST" onsubmit="return disableSubmitButton()" enctype="multipart/form-data">
+                    @csrf
+        
+                    <input type="hidden" name="journal_id" value="{{ $journal->id }}" readonly>
+                    <input type="hidden" name="journal_uuid" value="{{ $journal->uuid }}" readonly>
+                    <input type="hidden" name="user_id" value="{{ me()->id }}" readonly>
+        
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <label for="file_revision" class="form-label">{{ __('Upload File Revisi') }} <em>(Opsional)</em></label>
+                          <input type="file" accept="application/pdf" name="file_revision" id="file_revision" class="form-control @error('file') is-invalid @enderror">
+                          <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
+                          @error('file_revision')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                      </div>
+                    </div>
+        
+                    <div class="mb-3">
+                      <label for="js-ckeditor" class="form-label">{{ trans('Komentar Anda') }} <em>(Untuk Revisi)</em></label>
+                      <textarea id="js-ckeditor" name="comment">{{ old('comment') }}</textarea>
+                      @error('comment')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+        
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="mb-3">
+                          <button type="submit" class="btn btn-primary w-100" id="submit-button">
+                            <i class="fa fa-fw fa-paper-plane opacity-50 me-1"></i>
+                            {{ trans('Kirim Komentar') }}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+        
+                  </form>
+                @endif
+              @endif
+
             @endif
           @endif
 

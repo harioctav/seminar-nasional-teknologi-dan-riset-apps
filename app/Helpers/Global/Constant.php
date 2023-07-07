@@ -31,10 +31,10 @@ class Constant
 
   public const DRAFT = 'Draft';
   public const IN_REVIEW = 'Sedang Review';
-  public const IN_REVISION = 'Perlu Revisi';
-  public const ACCEPTED = 'Accepted';
+  public const IN_REVISION = 'Dalam Revisi';
+  public const READY_PUBLISH = 'Siap Diterbitkan';
 
-  public const PUBLISHED = 'Diterbitkan';
+  public const PUBLISHED = 'Sudah Diterbitkan';
   public const UN_PUBLISHED = 'Belum Diterbitkan';
 
   // Method

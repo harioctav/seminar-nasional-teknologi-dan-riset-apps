@@ -2,6 +2,7 @@
 
 namespace App\Services\Comment;
 
+use App\Helpers\Global\Constant;
 use App\Helpers\Global\Helper;
 use Exception;
 use InvalidArgumentException;
@@ -38,12 +39,26 @@ class CommentServiceImplement extends Service implements CommentService
     DB::beginTransaction();
     try {
 
+      // Update Status Publikasi Journal
+      $journal = $this->journalRepository->findOrFail($request->journal_id);
+      if ($request->status) {
+        $status = $request->status;
+      } else {
+        $status = $journal->status;
+      }
+
+      $journal->update([
+        'status' => $status,
+      ]);
+
       // File upload
       if ($request->file('file_revision')) :
         $fileRevision = Storage::putFile('public/pdf/revisions', $request->file('file_revision'));
       else :
         $fileRevision = null;
       endif;
+
+
 
       // Insert to Comment Table
       $validation = $request->validated();
