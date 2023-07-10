@@ -1,34 +1,21 @@
 <?php
 
-namespace App\DataTables\Journals;
+namespace App\DataTables\Submissions;
 
-use App\Models\Journal;
 use App\Helpers\Global\Constant;
+use App\Helpers\Global\Helper;
+use App\Models\Publish;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\EloquentDataTable;
-use App\Services\Journal\JournalService;
-use App\Services\User\UserService;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class JournalDataTable extends DataTable
+class PublishDataTable extends DataTable
 {
-  /**
-   * Create a new datatable instance.
-   *
-   * @return void
-   */
-  public function __construct(
-    protected UserService $userService,
-    protected JournalService $journalService,
-  ) {
-    # code...
-  }
-
   /**
    * Build the DataTable class.
    *
@@ -36,43 +23,27 @@ class JournalDataTable extends DataTable
    */
   public function dataTable(QueryBuilder $query): EloquentDataTable
   {
-    $users = $this->userService->getReviewerOnly()->get();
-
     return (new EloquentDataTable($query))
       ->addIndexColumn()
-      ->addColumn('user_name', function ($row) {
-        return $row->user->name;
-      })
-      ->editColumn('status', fn ($row) => $row->isStatus())
-      ->addColumn('select', function ($row) use ($users) {
-        if (isRoleName() !== Constant::ADMIN) {
-          if ($row->selectReviewer) {
-            return $row->selectReviewer->user->name;
-          } else {
-            return '---';
-          }
-        }
-
-        if ($row->selectReviewer) {
-          return $row->selectReviewer->user->name;
-        } else {
-          return view('journals.journals.select-reviewer', compact('users', 'row'))->render();
-        }
-      })
-      ->addColumn('action', 'journals.journals.action')
+      ->editColumn('publish_date', fn ($row) => Helper::customDate($row->publish_date))
+      ->editColumn('is_active', fn ($row) => $row->isActive())
+      ->addColumn('user_has_journal', fn ($row) => $row->journal->user->name)
+      ->addColumn('journal_excerpt', fn ($row) => $row->journal->excerpt)
+      ->addColumn('journal_status', fn ($row) => $row->journal->isApproved())
+      ->addColumn('action', 'publishes.action')
       ->rawColumns([
         'action',
-        'status',
-        'select',
+        'is_active',
+        'journal_status',
       ]);
   }
 
   /**
    * Get the query source of dataTable.
    */
-  public function query(Journal $model): QueryBuilder
+  public function query(Publish $model): QueryBuilder
   {
-    return $this->journalService->sortByUserId();
+    return $model->newQuery();
   }
 
   /**
@@ -81,8 +52,20 @@ class JournalDataTable extends DataTable
   public function html(): HtmlBuilder
   {
     return $this->builder()
-      ->setTableId('journal-table')
+      ->setTableId('publish-table')
       ->columns($this->getColumns())
+      // ->minifiedAjax()
+      //->dom('Bfrtip')
+      // ->orderBy(1)
+      // ->selectStyleSingle()
+      // ->buttons([
+      //   Button::make('excel'),
+      //   Button::make('csv'),
+      //   Button::make('pdf'),
+      //   Button::make('print'),
+      //   Button::make('reset'),
+      //   Button::make('reload')
+      // ]);
       ->addTableClass([
         'table',
         'table-striped',
@@ -112,24 +95,30 @@ class JournalDataTable extends DataTable
         ->searchable(false)
         ->width('5%')
         ->addClass('text-center'),
-      Column::make('excerpt')
+
+      Column::make('journal_excerpt')
         ->title(trans('Judul'))
         ->addClass('text-center'),
-      Column::make('user_name')
+
+      Column::make('user_has_journal')
         ->title(trans('Pemakalah'))
         ->addClass('text-center'),
-      Column::make('upload_year')
-        ->title(trans('Tahun Upload'))
+
+      Column::make('publish_date')
+        ->title(trans('Tanggal Publish'))
         ->addClass('text-center'),
-      Column::make('status')
+
+      Column::make('is_active')
         ->title(trans('Status'))
         ->addClass('text-center'),
-      Column::make('select')
-        ->title(trans('Reviewer'))
+
+      Column::make('journal_status')
+        ->title(trans('Status Jurnal'))
         ->addClass('text-center'),
-      Column::computed('action')
-        ->exportable(false)
-        ->printable(false)
+
+      Column::make('action')
+        ->title(trans('Download'))
+        ->visible(isRoleName() === Constant::ADMIN ? true : false)
         ->width('5%')
         ->addClass('text-center'),
     ];
@@ -140,6 +129,6 @@ class JournalDataTable extends DataTable
    */
   protected function filename(): string
   {
-    return 'Journal_' . date('YmdHis');
+    return 'Publish_' . date('YmdHis');
   }
 }

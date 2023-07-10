@@ -90,6 +90,14 @@ return [
     'show' => 'Detail Data Komentar',
   ],
 
+  'publishes' => [
+    'title' => 'Halaman Publikasi',
+    'index' => 'Tabel Data Publikasi',
+    'create' => 'Tambah Data Publikasi',
+    'edit' => 'Ubah Data Publikasi',
+    'show' => 'Detail Data Publikasi',
+  ],
+
   'payments' => [
     'title' => 'Halaman Rekening',
     'index' => 'Tabel Data Rekening',

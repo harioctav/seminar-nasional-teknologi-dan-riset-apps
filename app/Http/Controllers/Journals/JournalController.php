@@ -83,9 +83,10 @@ class JournalController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Journal $journal)
+  public function update(JorunalRequest $request, Journal $journal)
   {
-    //
+    $this->journalService->handleUpdateJournal($request, $journal);
+    return redirect()->route('journals.index')->withSuccess(trans('session.update'));
   }
 
   /**

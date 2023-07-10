@@ -41,6 +41,7 @@ class CommentServiceImplement extends Service implements CommentService
 
       // Update Status Publikasi Journal
       $journal = $this->journalRepository->findOrFail($request->journal_id);
+
       if ($request->status) {
         $status = $request->status;
       } else {
@@ -57,8 +58,6 @@ class CommentServiceImplement extends Service implements CommentService
       else :
         $fileRevision = null;
       endif;
-
-
 
       // Insert to Comment Table
       $validation = $request->validated();

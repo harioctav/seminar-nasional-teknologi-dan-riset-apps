@@ -98,4 +98,14 @@ class Journal extends Model
   {
     return $this->hasMany(Comment::class, 'journal_id');
   }
+
+  /**
+   * Relation to publish model.
+   *
+   * @return HasMany
+   */
+  public function publishes(): HasMany
+  {
+    return $this->hasMany(Publish::class, 'journal_id');
+  }
 }

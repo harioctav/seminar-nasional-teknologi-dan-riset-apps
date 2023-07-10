@@ -1,8 +1,8 @@
-{{-- @if ($status === Constant::DRAFT)
+@if ($status === Constant::READY_PUBLISH)
   @can('journals.edit')
     <a href="{{ route('journals.edit', $uuid) }}" class="text-warning me-2"><i class="fa fa-sm fa-pencil"></i></a>
   @endcan
-@endif --}}
+@endif
 @can('journals.show')
   <a href="{{ route('journals.show', $uuid) }}" class="text-primary me-2"><i class="fa fa-sm fa-eye"></i></a>
 @endcan

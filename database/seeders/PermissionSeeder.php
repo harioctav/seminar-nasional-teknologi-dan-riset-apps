@@ -383,6 +383,73 @@ class PermissionSeeder extends Seeder
         'created_at' => now(),
         'updated_at' => now(),
       ],
+
+      // Publishes
+      [
+        'name' => 'publishes.index',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'publishes.create',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'publishes.store',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'publishes.show',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'publishes.edit',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'publishes.update',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'publishes.destroy',
+        'permission_category_id' => 9,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+
+      // Certificates
+      [
+        'name' => 'certificates.index',
+        'permission_category_id' => 10,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'certificates.print',
+        'permission_category_id' => 10,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
     ];
 
     $collects = collect($items);

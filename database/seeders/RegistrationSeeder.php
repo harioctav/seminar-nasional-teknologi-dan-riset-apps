@@ -21,12 +21,12 @@ class RegistrationSeeder extends Seeder
         'end' => '2023-07-16',
         'status' => Constant::OPEN,
       ],
-      [
-        'title' => 'Jadwal Acara Seminar',
-        'start' => '2023-07-24',
-        'end' => '2023-07-25',
-        'status' => Constant::CLOSE,
-      ],
+      // [
+      //   'title' => 'Jadwal Acara Seminar',
+      //   'start' => '2023-07-24',
+      //   'end' => '2023-07-25',
+      //   'status' => Constant::CLOSE,
+      // ],
     ];
 
     $collects = collect($items);

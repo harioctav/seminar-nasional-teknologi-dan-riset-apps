@@ -40,6 +40,20 @@ class JournalServiceImplement extends Service implements JournalService
     return $return;
   }
 
+  public function getReadyPublishData()
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getReadyPublishData();
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
   public function handleUploadJournal($request)
   {
     DB::beginTransaction();
@@ -57,6 +71,33 @@ class JournalServiceImplement extends Service implements JournalService
       $validation['user_id'] = me()->id;
 
       $return = $this->mainRepository->create($validation);
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
+  public function handleUpdateJournal($request, $journal)
+  {
+    DB::beginTransaction();
+    try {
+      // Manajamen file
+      if ($request->file('file')) :
+        if ($request->oldFile) :
+          Storage::delete($journal->file);
+        endif;
+        $file = Storage::putFile('public/pdf/journals', $request->file('file'));
+      else :
+        $file = null;
+      endif;
+
+      $validation = $request->validated();
+      $validation['file'] = $file;
+
+      $return = $this->mainRepository->update($journal->id, $validation);
     } catch (Exception $e) {
       DB::rollBack();
       Log::info($e->getMessage());

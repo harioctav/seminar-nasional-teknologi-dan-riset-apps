@@ -33,15 +33,15 @@
         <div class="col-md-6">
 
           <div class="mb-4">
-            <label for="title" class="form-label">Judul</label>
-            <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Judul/Topik Makalah">
+            <label for="title" class="form-label">{{ trans('Judul/Topik Makalah') }}</label>
+            <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="{{ trans('Judul/Topik Makalah') }}">
             @error('title')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
 
           <div class="mb-4">
-            <label for="abstract" class="form-label">Abstrak</label>
+            <label for="abstract" class="form-label">{{ trans('Abstrak') }}</label>
             <textarea name="abstract" class="editor form-control @error('abstract') is-invalid @enderror" id="abstract" cols="30" rows="5">{{ old('abstract') }}</textarea>
             @error('abstract')
               <div class="invalid-feedback">{{ $message }}</div>
@@ -49,7 +49,7 @@
           </div>
 
           <div class="mb-4">
-            <label for="upload_year" class="form-label">Tahun Upload</label>
+            <label for="upload_year" class="form-label">{{ trans('Tahun Upload') }}</label>
             <input type="text" name="upload_year" id="upload_year" class="form-control @error('upload_year') is-invalid @enderror" value="{{ date('Y') }}" readonly>
             @error('upload_year')
               <div class="invalid-feedback">{{ $message }}</div>
@@ -57,7 +57,7 @@
           </div>
 
           <div class="mb-4">
-            <label for="file" class="form-label">{{ __('Upload File Makalah') }}</label>
+            <label for="file" class="form-label">{{ trans('Upload File Makalah') }}</label>
             <input type="file" accept="application/pdf" name="file" id="file" class="form-control @error('file') is-invalid @enderror">
             <small class="text-muted">{{ trans('Hanya boleh memasukkan file dengan format .pdf') }}</small>
             @error('file')

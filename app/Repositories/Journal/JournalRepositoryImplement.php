@@ -28,4 +28,12 @@ class JournalRepositoryImplement extends Eloquent implements JournalRepository
       return $this->model->latest();
     endif;
   }
+
+  public function getReadyPublishData()
+  {
+    return $this->model
+      ->where('status', Constant::READY_PUBLISH)
+      ->where('is_approved', false)
+      ->latest();
+  }
 }

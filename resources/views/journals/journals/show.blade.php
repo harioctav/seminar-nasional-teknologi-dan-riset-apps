@@ -143,7 +143,8 @@
                     <a class="me-1" href="#" onclick="deleteComment(`{{ route('comments.destroy', $comment->uuid) }}`)" class="text-danger me-2">{{ trans('Hapus') }}</a>
                   @endif
                   <span class="text-muted"><em>Komentar diupload pada </em></span>
-                  <span class="text-muted"><em>{{ $comment->created_at->diffForHumans() }}</em></span>
+                  <span class="text-muted fw-semibold">{{ $comment->created_at->format('Y-m-d H:i') }}</span>
+                  <span class="text-muted"><em>({{ $comment->created_at->diffForHumans() }})</em></span>
                 </div>
               </div>
             </div>
@@ -157,8 +158,14 @@
             {{ $journal->comments()->paginate(2)->links('pagination::bootstrap-5') }}
           </div>
 
+          <div class="mb-2">
+            <span class="fw-semibold">
+              {{ trans('NOTED (Pemakalah): ') }} <em>{{ trans('Jika jurnal anda siap untuk dipublikasi, mohon untuk kembali ke halaman makalah kemudian anda lakukan update pada file makalah anda') }}</em>
+            </span>
+          </div>
+
           @if (isRoleName() !== Constant::ADMIN)
-            @if(!$journal->status === Constant::READY_PUBLISH)
+            @if($journal->status !== Constant::READY_PUBLISH)
               
               @if(isRoleName() === Constant::REVIEWER)
                 @if($journal->selectReviewer->user->id == me()->id)

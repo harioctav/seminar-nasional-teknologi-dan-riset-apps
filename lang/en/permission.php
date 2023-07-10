@@ -89,4 +89,15 @@ return [
     'update' => 'Memperbarui Komentar',
     'destroy' => 'Menghapus Komentar',
   ],
+
+  'publishes' => [
+    'name' => 'Management Publikasi',
+    'index' => 'List Publikasi',
+    'create' => 'Formulir Tambah Publikasi',
+    'store' => 'Menambahkan Publikasi',
+    'show' => 'Detail Publikasi',
+    'edit' => 'Formulir Ubah Publikasi',
+    'update' => 'Memperbarui Publikasi',
+    'destroy' => 'Menghapus Publikasi',
+  ],
 ];

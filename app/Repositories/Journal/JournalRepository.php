@@ -7,4 +7,5 @@ use LaravelEasyRepository\Repository;
 interface JournalRepository extends Repository
 {
   public function sortByUserId();
+  public function getReadyPublishData();
 }

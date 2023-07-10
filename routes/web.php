@@ -10,9 +10,11 @@ use App\Http\Controllers\Settings\UserController;
 use App\Http\Controllers\Journals\JournalController;
 use App\Http\Controllers\Settings\PaymentController;
 use App\Http\Controllers\Settings\PasswordController;
+use App\Http\Controllers\Submissions\CommentController;
+use App\Http\Controllers\Submissions\PublishController;
 use App\Http\Controllers\Journals\TransactionController;
 use App\Http\Controllers\Journals\RegistrationController;
-use App\Http\Controllers\Submissions\CommentController;
+use App\Http\Controllers\Submissions\CertificateController;
 use App\Http\Controllers\Submissions\SelectReviewerController;
 
 /*
@@ -70,5 +72,12 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
 
     // Comments
     Route::resource('comments', CommentController::class)->only('store', 'destroy');
+
+    // Publishes
+    Route::resource('publishes', PublishController::class)->only('index', 'create', 'store', 'update');
+
+    // Certificates
+    Route::patch('certificates/print', [CertificateController::class, 'print'])->name('certificates.print');
+    Route::resource('certificates', CertificateController::class)->only('index');
   });
 });

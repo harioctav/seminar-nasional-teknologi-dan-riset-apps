@@ -52,6 +52,32 @@
         </li>
       @endcanany
 
+      @canany(['publishes.index'])
+        <li class="nav-main-heading">{{ trans('Submissions') }}</li>
+        <li class="nav-main-item">
+          <a class="nav-main-link {{ Request::is('submissions*') ? 'active' : '' }} nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="{{ Request::is('settings*') ? 'true' : 'false' }}" href="#">
+            <i class="nav-main-link-icon fa fa-file"></i>
+            <span class="nav-main-link-name">{{ trans('Submissions') }}</span>
+          </a>
+          <ul class="nav-main-submenu">
+            @can('publishes.index')
+              <li class="nav-main-item">
+                <a class="nav-main-link {{ Request::is('submissions/publishes*') ? 'active' : '' }}" href="{{ route('publishes.index') }}">
+                  <span class="nav-main-link-name">{{ trans('Publikasi') }}</span>
+                </a>
+              </li>
+            @endcan
+            @can('certificates.index')
+              <li class="nav-main-item">
+                <a class="nav-main-link {{ Request::is('submissions/certificates*') ? 'active' : '' }}" href="{{ route('certificates.index') }}">
+                  <span class="nav-main-link-name">{{ trans('Cetak Sertifikat') }}</span>
+                </a>
+              </li>
+            @endcan
+          </ul>
+        </li>
+      @endcanany
+
       @canany(['roles.index', 'users.index', 'payments.index'])
         <li class="nav-main-heading">{{ trans('Management') }}</li>
         <li class="nav-main-item">

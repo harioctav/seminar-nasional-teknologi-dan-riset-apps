@@ -4,7 +4,7 @@ namespace App\Http\Requests\Submissions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommentRequest extends FormRequest
+class PublishRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class CommentRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required',
       'journal_id' => 'required',
-      'file_revision' => 'nullable|mimes:pdf|max:10000',
-      'comment' => 'required|string',
+      'publish_date' => 'required|date',
     ];
   }
 
@@ -36,13 +34,9 @@ class CommentRequest extends FormRequest
   public function messages(): array
   {
     return [
-      'user_id.required' => ':attribute tidak boleh dikosongkan',
       'journal_id.required' => ':attribute tidak boleh dikosongkan',
-      'file_revision.image' => ':attribute tidak valid, pastikan memilih gambar',
-      'file_revision.mimes' => ':attribute tidak valid, masukkan gambar dengan format jpg atau png',
-      'file_revision.max' => ':attribute terlalu besar, maksimal :max kb',
-      'comment.required' => ':attribute tidak boleh dikosongkan',
-      'comment.string' => ':attribute tidak valid, masukkan yang benar',
+      'publish_date.required' => ':attribute tidak boleh dikosongkan',
+      'publish_date.date' => ':attribute tidak valid, masukkan format tanggal yang benar',
     ];
   }
 
@@ -53,10 +47,8 @@ class CommentRequest extends FormRequest
   public function attributes(): array
   {
     return [
-      'user_id' => 'Pengguna',
       'journal_id' => 'Makalah',
-      'file_revision' => 'File',
-      'comment' => 'Komentar',
+      'publish_date' => 'Tanggal publikasi',
     ];
   }
 }
