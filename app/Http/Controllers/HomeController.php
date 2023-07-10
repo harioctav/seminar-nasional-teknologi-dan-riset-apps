@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Global\Dashboard;
+use App\Services\User\UserService;
+use App\Services\Journal\JournalService;
+use App\Services\Publish\PublishService;
 
 class HomeController extends Controller
 {
@@ -11,8 +15,11 @@ class HomeController extends Controller
    *
    * @return void
    */
-  public function __construct()
-  {
+  public function __construct(
+    protected UserService $userService,
+    protected PublishService $publishService,
+    protected JournalService $journalService,
+  ) {
     $this->middleware(['auth', 'verified']);
   }
 
@@ -23,6 +30,14 @@ class HomeController extends Controller
    */
   public function index()
   {
-    return view('home');
+    $reviewerActive = $this->userService->getReviewerOnly()->count();
+    $publishesJournal = $this->publishService->getPublishesData()->count();
+    $totalUser = $this->userService->getUserExceptAdmin()->count();
+
+    return view('home', compact(
+      'reviewerActive',
+      'publishesJournal',
+      'totalUser',
+    ));
   }
 }

@@ -190,6 +190,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Constant' => \App\Helpers\Global\Constant::class,
+        'Dashboard' => \App\Helpers\Global\Dashboard::class,
         'Helper' => \App\Helpers\Global\Helper::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ])->toArray(),

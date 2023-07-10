@@ -100,4 +100,16 @@ return [
     'update' => 'Memperbarui Publikasi',
     'destroy' => 'Menghapus Publikasi',
   ],
+
+  'certificates' => [
+    'name' => 'Management Sertifikat',
+    'index' => 'List Sertifikat',
+    'create' => 'Formulir Tambah Sertifikat',
+    'store' => 'Menambahkan Sertifikat',
+    'show' => 'Detail Sertifikat',
+    'edit' => 'Formulir Ubah Sertifikat',
+    'update' => 'Memperbarui Sertifikat',
+    'destroy' => 'Menghapus Sertifikat',
+    'print' => 'Cetak Sertifikat',
+  ],
 ];

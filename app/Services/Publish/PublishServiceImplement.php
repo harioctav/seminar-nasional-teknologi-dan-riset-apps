@@ -30,6 +30,20 @@ class PublishServiceImplement extends Service implements PublishService
     $this->journalRepository = $journalRepository;
   }
 
+  public function getPublishesData()
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getPublishesData();
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
   public function handleCreateData($request)
   {
     DB::beginTransaction();

@@ -21,6 +21,11 @@ class PublishRepositoryImplement extends Eloquent implements PublishRepository
     $this->model = $model;
   }
 
+  public function getPublishesData()
+  {
+    return $this->model->active();
+  }
+
   public function handleUpdateStatus(int $id)
   {
     $data = $this->findOrFail($id);

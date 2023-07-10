@@ -98,6 +98,14 @@ return [
     'show' => 'Detail Data Publikasi',
   ],
 
+  'certificates' => [
+    'title' => 'Halaman Sertifikat',
+    'index' => 'Tabel Data Sertifikat',
+    'create' => 'Tambah Data Sertifikat',
+    'edit' => 'Ubah Data Sertifikat',
+    'show' => 'Detail Data Sertifikat',
+  ],
+
   'payments' => [
     'title' => 'Halaman Rekening',
     'index' => 'Tabel Data Rekening',
