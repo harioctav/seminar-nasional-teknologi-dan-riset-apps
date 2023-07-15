@@ -83,6 +83,13 @@ class PermissionSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
+        'name' => 'users.notifications',
+        'permission_category_id' => 1,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
         'name' => 'users.destroy',
         'permission_category_id' => 1,
         'guard_name' => 'web',

@@ -8,6 +8,7 @@ use App\Helpers\Global\Constant;
 use App\Services\Role\RoleService;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\DataTables\Scopes\RolesFilter;
 use App\DataTables\Scopes\StatusFilter;
 use App\DataTables\Settings\UserDataTable;
@@ -137,5 +138,14 @@ class UserController extends Controller
     return response()->json([
       'message' => trans('Berhasil menghapus gambar'),
     ]);
+  }
+
+  /**
+   * Read notification
+   */
+  public function read()
+  {
+    Auth::user()->unreadNotifications->markAsRead();
+    return redirect()->back();
   }
 }

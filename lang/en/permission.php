@@ -13,6 +13,7 @@ return [
     'update' => 'Memperbarui Pengguna',
     'destroy' => 'Menghapus Pengguna',
     'password' => 'Merubah Password Pengguna',
+    'notifications' => 'Membaca Notifikasi',
   ],
 
   'roles' => [

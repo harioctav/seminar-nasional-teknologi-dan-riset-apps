@@ -169,7 +169,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ])->toArray(),
@@ -193,6 +193,7 @@ return [
         'Dashboard' => \App\Helpers\Global\Dashboard::class,
         'Helper' => \App\Helpers\Global\Helper::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Pusher' => Pusher\Pusher::class,
     ])->toArray(),
 
 ];

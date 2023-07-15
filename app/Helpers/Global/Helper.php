@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\DB;
 
 class Helper
 {
+  public static function getRupiah($value)
+  {
+    $format = "Rp " . number_format($value, 0, ',', '.');
+    return $format;
+  }
+
   public static function customDate($date, $show_day = true)
   {
     $date_name  = array(

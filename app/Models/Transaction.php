@@ -35,6 +35,11 @@ class Transaction extends Model
     return 'uuid';
   }
 
+  // public static function boot()
+  // {
+  //   // 
+  // }
+
   /**
    * Relation to user model.
    *

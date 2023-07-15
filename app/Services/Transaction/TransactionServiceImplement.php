@@ -2,16 +2,20 @@
 
 namespace App\Services\Transaction;
 
+use App\Events\Payments\NewTransactionEvent;
 use Exception;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use App\Helpers\Global\Constant;
 use App\Models\Transaction;
+use App\Notifications\Payments\NewTransactionNotification;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Transaction\TransactionRepository;
+use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Notification;
 
 class TransactionServiceImplement extends Service implements TransactionService
 {
@@ -20,10 +24,14 @@ class TransactionServiceImplement extends Service implements TransactionService
    * because used in extends service class
    */
   protected $mainRepository;
+  protected $userRepository;
 
-  public function __construct(TransactionRepository $mainRepository)
-  {
+  public function __construct(
+    UserRepository $userRepository,
+    TransactionRepository $mainRepository,
+  ) {
     $this->mainRepository = $mainRepository;
+    $this->userRepository = $userRepository;
   }
 
   public function getDataByUserId()
@@ -70,6 +78,9 @@ class TransactionServiceImplement extends Service implements TransactionService
       $validation['user_id'] = me()->id;
 
       $return = $this->mainRepository->create($validation);
+
+      // Send Notif Dropdown to Admin
+      event(new NewTransactionEvent($return));
     } catch (Exception $e) {
       DB::rollBack();
       Log::info($e->getMessage());

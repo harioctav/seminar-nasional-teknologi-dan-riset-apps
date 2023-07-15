@@ -18,7 +18,7 @@ class RegistrationSeeder extends Seeder
       [
         'title' => 'Jadwal Upload Makalah',
         'start' => '2023-07-01',
-        'end' => '2023-07-16',
+        'end' => '2023-07-30',
         'status' => Constant::OPEN,
       ],
       // [

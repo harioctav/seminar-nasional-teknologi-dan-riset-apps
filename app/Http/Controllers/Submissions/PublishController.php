@@ -29,6 +29,7 @@ class PublishController extends Controller
    */
   public function index(PublishDataTable $dataTable)
   {
+    // dd(auth()->user()->unReadNotifications()->paginate(5));
     return $dataTable->render('publishes.index');
   }
 

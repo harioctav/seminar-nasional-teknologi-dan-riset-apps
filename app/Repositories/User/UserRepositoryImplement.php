@@ -32,6 +32,20 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     })->active();
   }
 
+  public function getAdminOnly()
+  {
+    return $this->model->whereHas('roles', function ($query) {
+      $query->where('name', Constant::ADMIN);
+    })->active();
+  }
+
+  public function getPemakalahOnly()
+  {
+    return $this->model->whereHas('roles', function ($query) {
+      $query->where('name', Constant::PEMAKALAH);
+    })->active();
+  }
+
   public function getReviewerWhereNotSelected()
   {
     return $this->model->whereHas('roles', function ($query) {

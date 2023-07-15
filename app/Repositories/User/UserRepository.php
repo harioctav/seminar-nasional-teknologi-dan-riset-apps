@@ -7,6 +7,8 @@ use LaravelEasyRepository\Repository;
 interface UserRepository extends Repository
 {
   public function getReviewerOnly();
+  public function getAdminOnly();
+  public function getPemakalahOnly();
   public function getReviewerWhereNotSelected();
   public function getUserExceptAdmin();
   public function changeStatusUser(int $id);

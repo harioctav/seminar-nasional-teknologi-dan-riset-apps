@@ -5,17 +5,19 @@ use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Users\ClientController;
-use App\Http\Controllers\Settings\RoleController;
-use App\Http\Controllers\Settings\UserController;
-use App\Http\Controllers\Journals\JournalController;
-use App\Http\Controllers\Settings\PaymentController;
-use App\Http\Controllers\Settings\PasswordController;
-use App\Http\Controllers\Submissions\CommentController;
-use App\Http\Controllers\Submissions\PublishController;
-use App\Http\Controllers\Journals\TransactionController;
-use App\Http\Controllers\Journals\RegistrationController;
-use App\Http\Controllers\Submissions\CertificateController;
-use App\Http\Controllers\Submissions\SelectReviewerController;
+use App\Http\Controllers\Settings\{
+  PaymentController,
+  PasswordController,
+  UserController,
+  RoleController,
+};
+use App\Http\Controllers\Submissions\{CommentController, PublishController};
+use App\Http\Controllers\Journals\{
+  TransactionController,
+  RegistrationController,
+  JournalController,
+};
+use App\Http\Controllers\Submissions\{CertificateController, SelectReviewerController};
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,7 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::post('users/password', [PasswordController::class, 'store']);
 
     // User management.
+    Route::get('users/mark-as-read', [UserController::class, 'read'])->name('users.notifications');
     Route::patch('users/status/{user}', [UserController::class, 'status'])->name('users.status');
     Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
     Route::resource('users', UserController::class);
