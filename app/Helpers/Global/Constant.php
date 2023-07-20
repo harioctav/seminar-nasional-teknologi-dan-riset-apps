@@ -10,6 +10,9 @@ class Constant
   public const PEMAKALAH = 'Pemakalah';
   public const PARTICIPANT = 'Peserta';
 
+  // Whatsapp Button
+  public const ADMIN_CONTACT = '6285798888733';
+
   public const DEFAULT_PASSWORD = 'password';
 
   // Gender Name

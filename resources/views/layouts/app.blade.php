@@ -34,6 +34,27 @@
     <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/src/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css') }}">
 
+    <style>
+    .float-custom {
+      position: fixed;
+      z-index: 314159;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 3px #999;
+    }
+
+    .my-float {
+      margin-top: 16px;
+    }
+    </style>
+
     @stack('css')
     <link rel="stylesheet" href="{{ asset('assets/custom/css/custom.css') }}">
     <!-- END Stylesheets -->
@@ -46,6 +67,10 @@
   <body>
 
     <div id="page-container" class="page-header-dark main-content-boxed">
+
+      <a href="https://api.whatsapp.com/send?phone={{ Constant::ADMIN_CONTACT }}" class="float-custom" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Hubungi Admin">
+        <i class="fab fa-whatsapp my-float"></i>
+      </a>
 
       <!-- Header -->
       <header id="page-header">
