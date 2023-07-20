@@ -59,6 +59,8 @@ class RoleSeeder extends Seeder
         ->orWhere('name', 'LIKE', 'certificates.index')
         ->orWhere('name', 'LIKE', 'certificates.print')
         ->orWhere('name', 'LIKE', 'publishes.index')
+        ->orWhere('name', 'LIKE', 'notifications.index')
+        ->orWhere('name', 'LIKE', 'notifications.update')
         ->get()
     );
 
@@ -73,6 +75,8 @@ class RoleSeeder extends Seeder
         ->orWhere('name', 'LIKE', 'comments.store')
         ->orWhere('name', 'LIKE', 'comments.destroy')
         ->orWhere('name', 'LIKE', 'publishes.index')
+        ->orWhere('name', 'LIKE', 'notifications.index')
+        ->orWhere('name', 'LIKE', 'notifications.update')
         ->get()
     );
 
@@ -85,6 +89,8 @@ class RoleSeeder extends Seeder
         ->orWhere('name', 'LIKE', 'certificates.index')
         ->orWhere('name', 'LIKE', 'certificates.print')
         ->orWhere('name', 'LIKE', 'publishes.index')
+        ->orWhere('name', 'LIKE', 'notifications.index')
+        ->orWhere('name', 'LIKE', 'notifications.update')
         ->get()
     );
   }

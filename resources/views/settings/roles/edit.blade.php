@@ -43,20 +43,20 @@
               @enderror
             </div>
 
-            <div class="mb-4">
-              <div class="space-y-2">
-                <div class="form-check">
-                  <input type="checkbox" name="all_permission" id="all_permission" class="form-check-input @error('permission') is-invalid @enderror">
-                  <label for="all_permission" class="form-check-label">{{ trans('Pilih Semua Hak Akses') }}</label>
-                  @error('permission')
-                    <div class="invalid-feedback">
-                      <strong>{{ $message }}</strong>
-                    </div>
-                  @enderror
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
 
+        <div class="mb-4">
+          <div class="space-y-2">
+            <div class="form-check">
+              <input type="checkbox" name="all_permission" id="all_permission" class="form-check-input @error('permission') is-invalid @enderror">
+              <label for="all_permission" class="form-check-label">{{ trans('Pilih Semua Hak Akses') }}</label>
+              @error('permission')
+                <div class="invalid-feedback">
+                  <strong>{{ $message }}</strong>
+                </div>
+              @enderror
+            </div>
           </div>
         </div>
 
@@ -104,18 +104,6 @@
 @endsection
 @push('javascript')
 <script>
-  $(function () {
-    $('[name="all_permission"]').on('click', function() {
-      if($(this).is(':checked')) {
-        $.each($('.permission'), function() {
-          $(this).prop('checked',true);
-        });
-      } else {
-        $.each($('.permission'), function() {
-          $(this).prop('checked', false);
-        });
-      }
-    });
-  })
+  @vite('resources/js/settings/roles/index.js')
 </script>
 @endpush

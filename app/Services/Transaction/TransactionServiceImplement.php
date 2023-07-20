@@ -2,20 +2,23 @@
 
 namespace App\Services\Transaction;
 
-use App\Events\Payments\NewTransactionEvent;
 use Exception;
+use Carbon\Carbon;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use App\Helpers\Global\Helper;
 use App\Helpers\Global\Constant;
-use App\Models\Transaction;
-use App\Notifications\Payments\NewTransactionNotification;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Repositories\Transaction\TransactionRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Notification;
+use App\Repositories\Transaction\TransactionRepository;
+use App\Notifications\Payments\NewTransactionNotification;
+use App\Notifications\Transactions\PaymentNotification;
+use App\Repositories\Certificate\CertificateRepository;
 
 class TransactionServiceImplement extends Service implements TransactionService
 {
@@ -25,13 +28,16 @@ class TransactionServiceImplement extends Service implements TransactionService
    */
   protected $mainRepository;
   protected $userRepository;
+  protected $certificateRepository;
 
   public function __construct(
     UserRepository $userRepository,
     TransactionRepository $mainRepository,
+    CertificateRepository $certificateRepository,
   ) {
     $this->mainRepository = $mainRepository;
     $this->userRepository = $userRepository;
+    $this->certificateRepository = $certificateRepository;
   }
 
   public function getDataByUserId()
@@ -74,13 +80,14 @@ class TransactionServiceImplement extends Service implements TransactionService
       $validation = $request->validated();
       $validation['proof'] = $proof;
       $validation['amount'] = $nominal;
-      $validation['upload_date'] = now()->format('Y-m-d');
+      $validation['upload_date'] = Carbon::now()->toDateString();
       $validation['user_id'] = me()->id;
 
       $return = $this->mainRepository->create($validation);
 
       // Send Notif Dropdown to Admin
-      event(new NewTransactionEvent($return));
+      $admin = $this->userRepository->getAdminOnly()->get();
+      Notification::send($admin, new NewTransactionNotification($return));
     } catch (Exception $e) {
       DB::rollBack();
       Log::info($e->getMessage());
@@ -102,6 +109,25 @@ class TransactionServiceImplement extends Service implements TransactionService
       endif;
 
       $return = $this->mainRepository->updateStatusTransaction($id, $request, $reason);
+
+      // Send Notif to users
+      $transaction = $this->mainRepository->findOrFail($id);
+
+      // Get user dari pemilik transaksi
+      $user = $this->userRepository->findOrFail($transaction->user->id);
+
+      // Check if transaction status approved
+      if ($transaction->status === Constant::APPROVED) :
+        $certificate_data = array();
+        $certificate_data['code'] = Helper::autoNumber('certificates', 'code', 'CER-' . date('Ym'), 3);
+        $certificate_data['transaction_id'] = $transaction->id;
+        $certificate_data['generate_date'] = Carbon::now()->toDateString();
+
+        $this->certificateRepository->create($certificate_data);
+      endif;
+
+      // Send notif to user
+      Notification::send($user, new PaymentNotification($transaction));
     } catch (Exception $e) {
       DB::rollBack();
       Log::info($e->getMessage());

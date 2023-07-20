@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use App\Traits\Uuid;
+use App\Helpers\Global\Constant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -35,10 +39,18 @@ class Transaction extends Model
     return 'uuid';
   }
 
-  // public static function boot()
-  // {
-  //   // 
-  // }
+  /**
+   * Scope a query to only include approved transaction.
+   */
+  public function scopeApproved($data)
+  {
+    return $data->where('status', Constant::APPROVED);
+  }
+
+  public function getApproved(): Collection
+  {
+    return $this->approved()->get();
+  }
 
   /**
    * Relation to user model.
@@ -58,5 +70,15 @@ class Transaction extends Model
   public function payment(): BelongsTo
   {
     return $this->belongsTo(Payment::class, 'payment_id');
+  }
+
+  /**
+   * Relation to transaction model.
+   *
+   * @return HasOne
+   */
+  public function certificate(): HasOne
+  {
+    return $this->hasOne(Certificate::class, 'transaction_id');
   }
 }

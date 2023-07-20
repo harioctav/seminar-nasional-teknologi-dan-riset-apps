@@ -135,42 +135,7 @@
       ])
     </script>
 
-    <script>
-
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-
-      var pusherKey = "{{ env('PUSHER_APP_KEY') }}"
-      var pusherCluster = "{{ env('PUSHER_APP_CLUSTER') }}"
-
-      var pusher = new Pusher(pusherKey, {
-        cluster: pusherCluster,
-        authEndpoint: '/broadcasting/auth',
-        auth: {
-          headers: {
-            'X-CSRF-Token': '{{ csrf_token() }}',
-          },
-        },
-        // encrypted: true,
-      });
-
-      var channel = pusher.subscribe('private-admin-channel');
-      channel.bind('admin-notifications', function(data) {
-
-        One.helpers('jq-notify', {
-          type: 'success', 
-          icon: 'fa fa-info-circle me-1', 
-          message: JSON.stringify(data.message),
-        });
-
-        $(document).ready(function() {
-          setTimeout(function() {
-            location.reload();
-          }, 1500);
-        })
-
-      });
-    </script>
+    @vite('resources/js/admin/notification.js')
 
     @include('sweetalert::alert')
     @stack('javascript')

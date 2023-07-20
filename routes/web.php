@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Users\ClientController;
+use App\Http\Controllers\Users\{ClientController, NotificationController};
 use App\Http\Controllers\Settings\{
   PaymentController,
   PasswordController,
@@ -48,7 +48,6 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::post('users/password', [PasswordController::class, 'store']);
 
     // User management.
-    Route::get('users/mark-as-read', [UserController::class, 'read'])->name('users.notifications');
     Route::patch('users/status/{user}', [UserController::class, 'status'])->name('users.status');
     Route::post('users/image/delete/{user}', [UserController::class, 'image'])->name('users.image');
     Route::resource('users', UserController::class);
@@ -83,4 +82,8 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::patch('certificates/print', [CertificateController::class, 'print'])->name('certificates.print');
     Route::resource('certificates', CertificateController::class)->only('index');
   });
+
+  // Notification
+  Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+  Route::post('notifications/update/{id}', [NotificationController::class, 'update'])->name('notifications.update');
 });

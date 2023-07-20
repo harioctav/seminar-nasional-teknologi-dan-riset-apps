@@ -8,74 +8,7 @@
     <!-- END Logo -->
 
     <!-- Notifications Dropdown -->
-    <div class="dropdown dropdown-notifications d-inline-block me-2">
-      <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-fw fa-bell me-1"></i>
-        <small class="text-white">
-          {{ me()->unreadNotifications->count() }}
-        </small>
-      </button>
-      <div class="dropdown-menu dropdown-menu-lg p-0 border-0 fs-sm" aria-labelledby="page-header-notifications-dropdown">
-        <div class="p-2 bg-body-light border-bottom text-center rounded-top">
-          <h5 class="dropdown-header text-uppercase">Notifications</h5>
-        </div>
-        <ul class="nav-items mb-0">
-
-          @if(count(me()->unreadNotifications) == 0 && count(me()->readNotifications) == 0)
-            <li>
-              <div class="text-center d-flex py-2">
-                <div class="flex-grow-1 pe-2">
-                  <div class="fw-semibold">{{ trans('Tidak Ada Notifikasi Baru') }}</div>
-                </div>
-              </div>
-            </li>
-          @endif
-
-          @foreach (me()->unreadNotifications as $notification)
-            <li>
-              <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                <div class="flex-shrink-0 me-2 ms-3">
-                  <i class="fa fa-fw fa-wallet text-success"></i>
-                </div>
-                <div class="flex-grow-1 pe-2">
-                  <div class="fw-semibold">{{ $notification->data['message'] }}</div>
-                  <span class="fw-medium text-muted">{{ $notification->created_at->diffForHumans() }}</span>
-                </div>
-              </a>
-            </li>
-          @endforeach
-
-          @foreach (me()->readNotifications  as $notification)
-            <li>
-              <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                <div class="flex-shrink-0 me-2 ms-3">
-                  <i class="fa fa-fw fa-wallet text-success"></i>
-                </div>
-                <div class="flex-grow-1 pe-2">
-                  <div class="fw-normal">{{ $notification->data['message'] }}</div>
-                  <span class="fw-medium text-muted">{{ $notification->created_at->diffForHumans() }}</span>
-                </div>
-              </a>
-            </li>
-          @endforeach
-
-        </ul>
-        @if(count(me()->unreadNotifications) != 0)
-          <div class="p-2 border-top text-center">
-            <a class="d-inline-block fw-medium" href="{{ route('users.notifications') }}">
-              <i class="fa fa-fw fa-check me-1 opacity-50"></i>
-              {{ trans('Tandai sudah dibaca') }}
-            </a>
-          </div>
-        @endif
-        <div class="p-2 border-top text-center">
-          <a class="d-inline-block fw-medium" href="javascript:void(0)">
-            <i class="fa fa-fw fa-eye me-1 opacity-50"></i>
-            {{ trans('Lihat Semua Notifikasi') }}
-          </a>
-        </div>
-      </div>
-    </div>
+    @include('layouts.components.notification-dropdown')
     <!-- END Notifications Dropdown -->
 
   </div>
@@ -83,7 +16,6 @@
 
   <!-- Right Section -->
   <div class="d-flex align-items-center">
-    <!-- Open Search Section (visible on smaller screens) -->
 
     <!-- User Dropdown -->
     <div class="dropdown d-inline-block ms-2">

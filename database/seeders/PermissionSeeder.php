@@ -62,6 +62,13 @@ class PermissionSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
+        'name' => 'users.destroy',
+        'permission_category_id' => 1,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
         'name' => 'users.password',
         'permission_category_id' => 1,
         'guard_name' => 'web',
@@ -77,20 +84,6 @@ class PermissionSeeder extends Seeder
       ],
       [
         'name' => 'users.image',
-        'permission_category_id' => 1,
-        'guard_name' => 'web',
-        'created_at' => now(),
-        'updated_at' => now(),
-      ],
-      [
-        'name' => 'users.notifications',
-        'permission_category_id' => 1,
-        'guard_name' => 'web',
-        'created_at' => now(),
-        'updated_at' => now(),
-      ],
-      [
-        'name' => 'users.destroy',
         'permission_category_id' => 1,
         'guard_name' => 'web',
         'created_at' => now(),
@@ -453,6 +446,22 @@ class PermissionSeeder extends Seeder
       [
         'name' => 'certificates.print',
         'permission_category_id' => 10,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+
+      // Notifications
+      [
+        'name' => 'notifications.index',
+        'permission_category_id' => 11,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'notifications.update',
+        'permission_category_id' => 11,
         'guard_name' => 'web',
         'created_at' => now(),
         'updated_at' => now(),

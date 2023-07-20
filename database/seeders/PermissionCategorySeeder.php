@@ -24,6 +24,7 @@ class PermissionCategorySeeder extends Seeder
       'comments.name',
       'publishes.name',
       'certificates.name',
+      'notifications.name',
     ];
 
     foreach ($items as $name) :

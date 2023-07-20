@@ -7,6 +7,7 @@ use App\Helpers\Global\Dashboard;
 use App\Services\User\UserService;
 use App\Services\Journal\JournalService;
 use App\Services\Publish\PublishService;
+use App\Services\Transaction\TransactionService;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,7 @@ class HomeController extends Controller
     protected UserService $userService,
     protected PublishService $publishService,
     protected JournalService $journalService,
+    protected TransactionService $transactionService,
   ) {
     $this->middleware(['auth', 'verified']);
   }

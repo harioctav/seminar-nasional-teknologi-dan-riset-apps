@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Notifications\Payments;
+namespace App\Notifications\Submissions;
 
-use App\Helpers\Global\Helper;
-use App\Models\Transaction;
+use App\Models\SelectReviewer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\BroadcastMessage;
+use Illuminate\Notifications\Notification;
 
-class NewTransactionNotification extends Notification
+class ReviewerForJournalNotification extends Notification
 {
   use Queueable;
 
@@ -18,7 +16,7 @@ class NewTransactionNotification extends Notification
    * Create a new notification instance.
    */
   public function __construct(
-    public Transaction $transaction
+    protected SelectReviewer $selectReviewer
   ) {
     //
   }
@@ -51,13 +49,10 @@ class NewTransactionNotification extends Notification
    */
   public function toArray(object $notifiable): array
   {
-    $name = $this->transaction->user->name;
-    $amount = Helper::getRupiah($this->transaction->amount);
+    $havedJournal = $this->selectReviewer->journal->user->name;
 
     return [
-      'transaction_amount' => $amount,
-      'transaction_user' => $name,
-      'message' => "{$name} telah melakukan pembayaran sebesar {$amount}",
+      'message' => "Administrator memilih anda untuk menjadi reviewer di makalah yang diupload oleh {$havedJournal} silahkan cek makalah di halaman makalah",
     ];
   }
 }

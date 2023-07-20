@@ -30,6 +30,11 @@ class TransactionRepositoryImplement extends Eloquent implements TransactionRepo
     endif;
   }
 
+  public function getOnlyApprovedTransaction()
+  {
+    return $this->model->approved();
+  }
+
   public function updateStatusTransaction(int $id, Request $request, $reason)
   {
     $transaction = $this->findOrFail($id);

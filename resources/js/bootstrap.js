@@ -34,17 +34,3 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
 //     enabledTransports: ["ws", "wss"],
 // });
-
-// import Echo from "laravel-echo";
-
-// window.Echo = new Echo({
-//     broadcaster: "pusher",
-//     key: "342d6e4af68ca0a5e108",
-//     cluster: "ap1",
-//     forceTLS: true,
-// });
-
-// var channel = window.Echo.channel("admin-channel");
-// channel.listen(".admin-notifications", function (data) {
-//     alert(JSON.stringify(data));
-// });

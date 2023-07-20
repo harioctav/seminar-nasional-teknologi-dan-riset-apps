@@ -8,5 +8,6 @@ use LaravelEasyRepository\Repository;
 interface TransactionRepository extends Repository
 {
   public function getDataByUserId();
+  public function getOnlyApprovedTransaction();
   public function updateStatusTransaction(int $id, Request $request, $reason);
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services\Journal;
 
+use App\Notifications\Submissions\NewJournalNotification;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Notification;
 use App\Repositories\Journal\JournalRepository;
 
 class JournalServiceImplement extends Service implements JournalService
@@ -21,8 +24,10 @@ class JournalServiceImplement extends Service implements JournalService
    */
   protected $mainRepository;
 
-  public function __construct(JournalRepository $mainRepository)
-  {
+  public function __construct(
+    JournalRepository $mainRepository,
+    protected UserRepository $userRepository,
+  ) {
     $this->mainRepository = $mainRepository;
   }
 
@@ -71,6 +76,10 @@ class JournalServiceImplement extends Service implements JournalService
       $validation['user_id'] = me()->id;
 
       $return = $this->mainRepository->create($validation);
+
+      // Send notification to admin
+      $admin = $this->userRepository->getAdminOnly()->get();
+      Notification::send($admin, new NewJournalNotification($return));
     } catch (Exception $e) {
       DB::rollBack();
       Log::info($e->getMessage());
