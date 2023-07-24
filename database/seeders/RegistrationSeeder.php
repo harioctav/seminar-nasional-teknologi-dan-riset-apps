@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Registration;
 use Illuminate\Database\Seeder;
 use App\Helpers\Global\Constant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RegistrationSeeder extends Seeder
 {
@@ -18,15 +17,17 @@ class RegistrationSeeder extends Seeder
       [
         'title' => 'Jadwal Upload Makalah',
         'start' => '2023-07-01',
-        'end' => '2023-07-30',
-        'status' => Constant::OPEN,
+        'end' => '2023-07-22',
+        'status' => Constant::CLOSE,
+        'type' => Constant::UPLOAD,
       ],
-      // [
-      //   'title' => 'Jadwal Acara Seminar',
-      //   'start' => '2023-07-24',
-      //   'end' => '2023-07-25',
-      //   'status' => Constant::CLOSE,
-      // ],
+      [
+        'title' => 'Jadwal Acara Seminar',
+        'start' => '2023-07-24',
+        'end' => '2023-07-25',
+        'status' => Constant::OPEN,
+        'type' => Constant::SEMINAR,
+      ],
     ];
 
     $collects = collect($items);

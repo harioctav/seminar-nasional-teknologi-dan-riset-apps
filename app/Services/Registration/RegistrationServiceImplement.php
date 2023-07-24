@@ -36,4 +36,18 @@ class RegistrationServiceImplement extends Service implements RegistrationServic
     DB::commit();
     return $return;
   }
+
+  public function getRegistrationByType()
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getRegistrationByType();
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
 }

@@ -214,4 +214,14 @@ class User extends Authenticatable
   {
     return $this->hasMany(Comment::class, 'user_id');
   }
+
+  /**
+   * Relation to certificates model.
+   *
+   * @return HasMany
+   */
+  public function certificates(): HasMany
+  {
+    return $this->hasMany(Certificate::class, 'user_id');
+  }
 }

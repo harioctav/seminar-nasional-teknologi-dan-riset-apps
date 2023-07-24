@@ -22,6 +22,7 @@ class Registration extends Model
     'start',
     'end',
     'status',
+    'type',
   ];
 
   /**
@@ -52,6 +53,15 @@ class Registration extends Model
       return '<span class="badge text-success">' . Constant::OPEN .  '</span>';
     else :
       return '<span class="badge text-danger">' . Constant::CLOSE .  '</span>';
+    endif;
+  }
+
+  public function isType()
+  {
+    if ($this->type === Constant::UPLOAD) :
+      return '<span class="badge text-info">' . Constant::UPLOAD .  '</span>';
+    else :
+      return '<span class="badge text-warning">' . Constant::SEMINAR .  '</span>';
     endif;
   }
 }

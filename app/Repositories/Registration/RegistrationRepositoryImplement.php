@@ -29,4 +29,14 @@ class RegistrationRepositoryImplement extends Eloquent implements RegistrationRe
       }
     })->where('status', Constant::OPEN);
   }
+
+  public function getRegistrationByType()
+  {
+    return $this->model->all()->filter(function ($item) {
+      if (Carbon::now()->between($item->start, $item->end)) {
+        return $item;
+      }
+    })->where('status', Constant::OPEN)
+      ->where('type', Constant::SEMINAR);
+  }
 }

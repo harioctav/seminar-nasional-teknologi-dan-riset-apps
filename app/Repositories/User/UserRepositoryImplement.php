@@ -53,6 +53,14 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     })->active()->doesntHave('selectReviewer');
   }
 
+  public function getUserWhereHasTransaction()
+  {
+    $user = $this->getPemakalahOnly();
+    return $user->whereHas('transactions', function ($query) {
+      $query->where('status', Constant::APPROVED);
+    });
+  }
+
   public function changeStatusUser($id)
   {
     $user = $this->findOrFail($id);

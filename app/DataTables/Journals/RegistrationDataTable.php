@@ -27,11 +27,15 @@ class RegistrationDataTable extends DataTable
       ->editColumn('status', function ($row) {
         return $row->isStatus();
       })
+      ->editColumn('type', function ($row) {
+        return $row->isType();
+      })
       ->editColumn('start', fn ($row) => Helper::customDate($row->start))
       ->editColumn('end', fn ($row) => Helper::customDate($row->end))
       ->addColumn('action', 'journals.registrations.action')
       ->rawColumns([
         'status',
+        'type',
         'action',
       ]);
   }
@@ -101,6 +105,9 @@ class RegistrationDataTable extends DataTable
         ->addClass('text-center'),
       Column::make('status')
         ->title(trans('Status'))
+        ->addClass('text-center'),
+      Column::make('type')
+        ->title(trans('Jenis Kegiatan'))
         ->addClass('text-center'),
       Column::computed('action')
         ->exportable(false)

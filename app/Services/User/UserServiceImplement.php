@@ -80,6 +80,20 @@ class UserServiceImplement extends Service implements UserService
     return $return;
   }
 
+  public function getUserWhereHasTransaction()
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getUserWhereHasTransaction();
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
   public function handleChangeStatus($id)
   {
     DB::beginTransaction();

@@ -79,8 +79,7 @@ Route::middleware(['auth', 'permission', 'verified'])->group(function () {
     Route::resource('publishes', PublishController::class)->only('index', 'create', 'store', 'update');
 
     // Certificates
-    Route::patch('certificates/print', [CertificateController::class, 'print'])->name('certificates.print');
-    Route::resource('certificates', CertificateController::class)->only('index');
+    Route::resource('certificates', CertificateController::class)->only('index', 'create', 'store');
   });
 
   // Notification

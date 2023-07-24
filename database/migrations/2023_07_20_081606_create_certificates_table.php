@@ -14,9 +14,10 @@ return new class extends Migration
     Schema::create('certificates', function (Blueprint $table) {
       $table->id();
       $table->string('uuid');
-      $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
+      $table->foreignId('user_id')->constrained()->onDelete('cascade');
       $table->string('code')->nullable();
       $table->date('generate_date');
+      $table->string('image')->nullable();
       $table->timestamps();
     });
   }

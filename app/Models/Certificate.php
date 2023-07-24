@@ -18,10 +18,21 @@ class Certificate extends Model
    */
   protected $fillable = [
     'uuid',
-    'transaction_id',
+    'user_id',
     'code',
     'generate_date',
+    'image',
   ];
+
+  public static function generateCode(string $year)
+  {
+    // Ambil jumlah data dengan nomor yang dimulai dengan tahun saat ini
+    $count = self::where('code', 'like', "%{$year}%")->count();
+
+    // Buat nomor otomatis dengan format yang diinginkan
+    $code = str_pad($count + 1, 4, '0', STR_PAD_LEFT) . "/POLSMI.C10/PN/X/{$year}";
+    return $code;
+  }
 
   /**
    * Get the route key for the model.
@@ -32,12 +43,12 @@ class Certificate extends Model
   }
 
   /**
-   * Relation to transaction model.
+   * Relation to user model.
    *
    * @return BelongsTo
    */
-  public function transaction(): BelongsTo
+  public function user(): BelongsTo
   {
-    return $this->belongsTo(Transaction::class, 'transaction_id');
+    return $this->belongsTo(User::class, 'user_id');
   }
 }

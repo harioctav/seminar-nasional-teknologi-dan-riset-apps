@@ -444,6 +444,20 @@ class PermissionSeeder extends Seeder
         'updated_at' => now(),
       ],
       [
+        'name' => 'certificates.create',
+        'permission_category_id' => 10,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
+        'name' => 'certificates.store',
+        'permission_category_id' => 10,
+        'guard_name' => 'web',
+        'created_at' => now(),
+        'updated_at' => now(),
+      ],
+      [
         'name' => 'certificates.print',
         'permission_category_id' => 10,
         'guard_name' => 'web',

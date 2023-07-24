@@ -71,14 +71,4 @@ class Transaction extends Model
   {
     return $this->belongsTo(Payment::class, 'payment_id');
   }
-
-  /**
-   * Relation to transaction model.
-   *
-   * @return HasOne
-   */
-  public function certificate(): HasOne
-  {
-    return $this->hasOne(Certificate::class, 'transaction_id');
-  }
 }

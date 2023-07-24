@@ -101,7 +101,7 @@ return [
   'certificates' => [
     'title' => 'Halaman Sertifikat',
     'index' => 'Tabel Data Sertifikat',
-    'create' => 'Tambah Data Sertifikat',
+    'create' => 'Generate Sertifikat',
     'edit' => 'Ubah Data Sertifikat',
     'show' => 'Detail Data Sertifikat',
   ],

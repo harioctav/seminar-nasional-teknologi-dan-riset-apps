@@ -13,6 +13,10 @@ class Constant
   // Whatsapp Button
   public const ADMIN_CONTACT = '6285798888733';
 
+  // Tipe Jadwal
+  public const UPLOAD = 'Upload Makalah';
+  public const SEMINAR = 'Seminar Dimulai';
+
   public const DEFAULT_PASSWORD = 'password';
 
   // Gender Name

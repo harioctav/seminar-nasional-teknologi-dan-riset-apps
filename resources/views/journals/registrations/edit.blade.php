@@ -69,6 +69,18 @@
             @enderror
           </div>
 
+          <div class="mb-4">
+            <label for="type" class="form-label">{{ trans('Pilih Jenis Kegiatan') }}</label>
+            <select name="type" id="type" class="form-select @error('type') is-invalid @enderror">
+              <option selected="selected" disabled>{{ trans('Pilih Jenis Kegiatan') }}</option>
+              <option value="{{ Constant::UPLOAD }}" {{ old('type', $registration->type) === Constant::UPLOAD ? 'selected' : '' }}>{{ Constant::UPLOAD }}</option>
+              <option value="{{ Constant::SEMINAR }}" {{ old('type', $registration->type) === Constant::SEMINAR ? 'selected' : '' }}>{{ Constant::SEMINAR }}</option>
+            </select>
+            @error('type')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
         </div>
       </div>
 

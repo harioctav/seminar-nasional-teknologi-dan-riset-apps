@@ -7,4 +7,5 @@ use LaravelEasyRepository\BaseService;
 interface RegistrationService extends BaseService
 {
   public function getAvailableDate();
+  public function getRegistrationByType();
 }

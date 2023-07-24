@@ -88,8 +88,8 @@
             <label for="gender" class="form-label">{{ trans('Pilih Jenis Kelamin') }}</label>
             <select name="gender" id="gender" class="form-select @error('gender') is-invalid @enderror">
               <option selected="selected" disabled>{{ trans('Pilih Jenis Kelamin') }}</option>
-              <option value="Laki - Laki" {{ old('gender') === Constant::MALE ? 'selected' : '' }}>{{ Constant::MALE }}</option>
-              <option value="Perempuan" {{ old('gender') === Constant::FEMALE ? 'selected' : '' }}>{{ Constant::FEMALE }}</option>
+              <option value="{{ Constant::MALE }}" {{ old('gender') === Constant::MALE ? 'selected' : '' }}>{{ Constant::MALE }}</option>
+              <option value="{{ Constant::FEMALE }}" {{ old('gender') === Constant::FEMALE ? 'selected' : '' }}>{{ Constant::FEMALE }}</option>
             </select>
             @error('gender')
               <div class="invalid-feedback">{{ $message }}</div>

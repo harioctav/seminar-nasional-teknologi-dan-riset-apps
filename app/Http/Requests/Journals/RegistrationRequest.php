@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Journals;
 
+use App\Helpers\Global\Constant;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,6 +30,7 @@ class RegistrationRequest extends FormRequest
       ],
       'start' => 'required|date',
       'end' => 'required|date|after_or_equal:start',
+      'type' => 'required|in:' . Constant::UPLOAD . ',' . Constant::SEMINAR . '',
     ];
   }
 
@@ -52,6 +54,9 @@ class RegistrationRequest extends FormRequest
       'end.date' => ':attribute harus berupa tanggal. Etc: 2023/01/01',
       'end.after_or_equal' => ':attribute harus berupa tanggal sebelum atau sama dengan :date',
       'end.before_or_equal' => ':attribute harus berupa tanggal setelah atau sama dengan :date',
+
+      'type.required' => ':attribute tidak boleh dikosongkan',
+      'type.in' => ':attribute tidak sesuai pilihan yang disediakan',
     ];
   }
 
@@ -66,6 +71,7 @@ class RegistrationRequest extends FormRequest
       'title' => 'Judul',
       'start' => 'Tanggal Dibuka',
       'end' => 'Tanggal Ditutup',
+      'type' => 'Tipe Acara',
     ];
   }
 }

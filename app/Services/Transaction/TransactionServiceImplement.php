@@ -116,16 +116,6 @@ class TransactionServiceImplement extends Service implements TransactionService
       // Get user dari pemilik transaksi
       $user = $this->userRepository->findOrFail($transaction->user->id);
 
-      // Check if transaction status approved
-      if ($transaction->status === Constant::APPROVED) :
-        $certificate_data = array();
-        $certificate_data['code'] = Helper::autoNumber('certificates', 'code', 'CER-' . date('Ym'), 3);
-        $certificate_data['transaction_id'] = $transaction->id;
-        $certificate_data['generate_date'] = Carbon::now()->toDateString();
-
-        $this->certificateRepository->create($certificate_data);
-      endif;
-
       // Send notif to user
       Notification::send($user, new PaymentNotification($transaction));
     } catch (Exception $e) {

@@ -12,6 +12,7 @@ interface UserService extends BaseService
   public function getReviewerOnly();
   public function getReviewerWhereNotSelected();
   public function getUserExceptAdmin();
+  public function getUserWhereHasTransaction();
   public function handleChangeStatus(int $id);
   public function handleRegisterUsers(Request $request);
   public function handleCreateNewUser(Request $request);
