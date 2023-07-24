@@ -17,7 +17,12 @@ Dibangun menggunakan Laravel 10 dan Javascript sebagai Add-On atau plugin guna m
 
 ### Instalasi
 
--   Clone projek ini dengan perintah git clone https://github.com/hariaja/seminar-nasional-teknologi-dan-riset-apps.git
+-   Clone projek ini dengan perintah berikut
+
+```
+https://github.com/hariaja/seminar-nasional-teknologi-dan-riset-apps.git
+```
+
 -   Buka terminal projek setelah meng-clone, kemudian jalankan perintah dibawah ini
 
 ```
