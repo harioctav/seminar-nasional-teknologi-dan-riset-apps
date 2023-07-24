@@ -18,13 +18,13 @@ class PaymentSeeder extends Seeder
       [
         'bank_id' => 8,
         'number' => '0381046132',
-        'holder_name' => 'Aldiama Hari Octavian Y',
+        'holder_name' => 'Admin Semnastera Polikami',
         'status' => Constant::ACTIVE,
       ],
       [
         'bank_id' => 4,
         'number' => '1820012350708',
-        'holder_name' => 'Aldiama Hari Octavia',
+        'holder_name' => 'Admin Semnastera Polikami',
         'status' => Constant::ACTIVE,
       ],
     ];
