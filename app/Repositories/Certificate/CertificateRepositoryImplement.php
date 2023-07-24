@@ -20,6 +20,11 @@ class CertificateRepositoryImplement extends Eloquent implements CertificateRepo
     $this->model = $model;
   }
 
+  public function countDataCertificate()
+  {
+    return $this->model->count();
+  }
+
   public function getDataByUserId(int $user_id)
   {
     return $this->model->where('user_id', $user_id);

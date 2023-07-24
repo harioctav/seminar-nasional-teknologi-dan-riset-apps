@@ -31,6 +31,20 @@ class CertificateServiceImplement extends Service implements CertificateService
     // 
   }
 
+  public function countDataCertificate()
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->countDataCertificate();
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
   public function generateCode(string $year)
   {
     DB::beginTransaction();

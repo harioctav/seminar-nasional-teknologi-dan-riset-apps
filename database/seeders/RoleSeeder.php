@@ -78,6 +78,7 @@ class RoleSeeder extends Seeder
         ->orWhere('name', 'LIKE', 'publishes.index')
         ->orWhere('name', 'LIKE', 'notifications.index')
         ->orWhere('name', 'LIKE', 'notifications.update')
+        ->orWhere('name', 'LIKE', 'certificates.index')
         ->get()
     );
 

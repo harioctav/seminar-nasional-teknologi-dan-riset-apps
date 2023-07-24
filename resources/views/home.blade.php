@@ -59,14 +59,14 @@
       </div>
     </a>
   </div>
-  {{-- <div class="col-6 col-md-3 col-lg-6 col-xl-3">
+  <div class="col-6 col-md-3 col-lg-6 col-xl-3">
     <a class="block block-rounded block-link-pop" href="javascript:void(0)">
       <div class="block-content block-content-full">
-        <div class="fs-sm fw-semibold text-uppercase text-muted">Avg Sale</div>
-        <div class="fs-2 fw-normal text-dark">$21</div>
+        <div class="fs-sm fw-semibold text-uppercase text-muted">Sertifikat Digenerate</div>
+        <div class="fs-2 fw-normal text-dark">{{ $totalGenerate . ' Sertifikat' }}</div>
       </div>
     </a>
-  </div> --}}
+  </div>
 </div>
 <!-- END Stats -->
 
