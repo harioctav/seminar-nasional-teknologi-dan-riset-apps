@@ -19,6 +19,7 @@ use App\Repositories\Transaction\TransactionRepository;
 use App\Notifications\Payments\NewTransactionNotification;
 use App\Notifications\Transactions\PaymentNotification;
 use App\Repositories\Certificate\CertificateRepository;
+use App\Services\Registration\RegistrationService;
 
 class TransactionServiceImplement extends Service implements TransactionService
 {
@@ -26,18 +27,14 @@ class TransactionServiceImplement extends Service implements TransactionService
    * don't change $this->mainRepository variable name
    * because used in extends service class
    */
-  protected $mainRepository;
-  protected $userRepository;
-  protected $certificateRepository;
 
   public function __construct(
-    UserRepository $userRepository,
-    TransactionRepository $mainRepository,
-    CertificateRepository $certificateRepository,
+    protected UserRepository $userRepository,
+    protected TransactionRepository $mainRepository,
+    protected CertificateRepository $certificateRepository,
+    protected RegistrationService $registrationService,
   ) {
-    $this->mainRepository = $mainRepository;
-    $this->userRepository = $userRepository;
-    $this->certificateRepository = $certificateRepository;
+    // 
   }
 
   public function getDataByUserId()
@@ -59,6 +56,8 @@ class TransactionServiceImplement extends Service implements TransactionService
     DB::beginTransaction();
     try {
 
+      $registration = $this->registrationService->findOrFail($request->registration_id);
+
       $amount = $request->amount;
       $nominal = str_replace(',', '', $amount);
 
@@ -77,11 +76,17 @@ class TransactionServiceImplement extends Service implements TransactionService
        * Tangkap input yang sudah tervalidasi.
        * Masukkan ke dalam variable dengan bentuk array dan simpan nama foto di database.
        */
+      $bayar = Helper::getRupiah($nominal);
+      $activity_name = $registration->title;
+      $activity_date = Helper::customDate($registration->start);
+
       $validation = $request->validated();
       $validation['proof'] = $proof;
       $validation['amount'] = $nominal;
       $validation['upload_date'] = Carbon::now()->toDateString();
       $validation['user_id'] = me()->id;
+      $date = Helper::customDate($validation['upload_date']);
+      $validation['description'] = "Saya melakukan pembayaran sebesar {$bayar} pada hari {$date} untuk kegiatan {$activity_name} yang diselenggarakan pada {$activity_date}";
 
       $return = $this->mainRepository->create($validation);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Submissions;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CertificateRequest extends FormRequest
 {
@@ -22,8 +23,9 @@ class CertificateRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'user_id' => 'required',
-      'registration_id' => 'required',
+      'registration_id' => [
+        'required',
+      ],
     ];
   }
 
@@ -35,6 +37,7 @@ class CertificateRequest extends FormRequest
   {
     return [
       'user_id.required' => ':attribute tidak boleh dikosongkan',
+      'user_id.unique' => 'Anda sudah mencetak sertifikat pada seminar ini. Tidak bisa duplikat.',
       'registration_id.required' => ':attribute tidak boleh dikosongkan',
     ];
   }

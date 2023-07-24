@@ -53,11 +53,13 @@ class NewTransactionNotification extends Notification
   {
     $name = $this->transaction->user->name;
     $amount = Helper::getRupiah($this->transaction->amount);
+    $registration_agenda = $this->transaction->registration->title;
+    $registration_date = Helper::customDate($this->transaction->registration->start);
 
     return [
       'transaction_amount' => $amount,
       'transaction_user' => $name,
-      'message' => "{$name} telah melakukan pembayaran sebesar {$amount}",
+      'message' => "{$name} telah melakukan pembayaran sebesar {$amount} untuk acara {$registration_agenda} yang diselenggarakan pada {$registration_date}",
     ];
   }
 }

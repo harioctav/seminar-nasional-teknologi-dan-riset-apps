@@ -2,6 +2,8 @@
 
 namespace App\Helpers\Global;
 
+use App\Models\Registration;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class Helper
@@ -10,6 +12,18 @@ class Helper
   {
     $format = "Rp " . number_format($value, 0, ',', '.');
     return $format;
+  }
+
+  public static function canPrintCertificate($user_id, $registration_id)
+  {
+    $user = User::findOrFail($user_id);
+    $registration = Registration::findOrFail($registration_id);
+
+    // Cek apakah user dan registrasinya sama
+    if ($user->certificates()->where('registration_id', $registration->id)->exists())
+      return false;
+
+    return true;
   }
 
   public static function customDate($date, $show_day = true)

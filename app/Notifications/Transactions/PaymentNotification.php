@@ -43,7 +43,7 @@ class PaymentNotification extends Notification
       ->line('Berikut adalah status pembayaran yang sudah anda lakukan.')
       ->line($this->myCustomMessage())
       ->action('Detail Transaksi Anda', route('transactions.show', $this->transaction->uuid))
-      ->line('Thank you for using our application!');
+      ->line('Terimakasih sudah berpartisipasi dalam acara kami dan semoga sukses selalu!');
   }
 
   /**
@@ -61,12 +61,15 @@ class PaymentNotification extends Notification
   protected function myCustomMessage()
   {
     $date = Helper::customDate($this->transaction->upload_date);
+    $activity_name = $this->transaction->registration->title;
+    $activity_date = Helper::customDate($this->transaction->registration->start);
+
     if ($this->transaction->status === Constant::APPROVED) :
-      $message = "Transaksi and pada {$date} sudah di terima oleh " . Constant::ADMIN;
+      $message = "Transaksi anda pada {$date} untuk acara {$activity_name} yang diselenggarakan pada {$activity_date} sudah di terima oleh " . Constant::ADMIN;
     elseif ($this->transaction->status === Constant::REJECTED) :
-      $message = "Transaksi and pada {$date} di tolak oleh " . Constant::ADMIN . " (Lihat detailnya di halaman transaksi)";
+      $message = "Transaksi anda pada {$date} untuk acara {$activity_name} yang diselenggarakan pada {$activity_date} di tolak oleh " . Constant::ADMIN . " (Lihat detailnya di halaman transaksi)";
     else :
-      $message = "Transaksi and pada {$date} masih pending, mohon untuk menunggu sampai statusnya berubah";
+      $message = "Transaksi anda pada {$date} untuk acara {$activity_name} yang diselenggarakan pada {$activity_date} masih pending, mohon untuk menunggu sampai statusnya berubah";
     endif;
 
     return $message;

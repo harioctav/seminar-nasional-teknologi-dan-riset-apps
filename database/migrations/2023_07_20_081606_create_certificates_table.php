@@ -15,6 +15,7 @@ return new class extends Migration
       $table->id();
       $table->string('uuid');
       $table->foreignId('user_id')->constrained()->onDelete('cascade');
+      $table->foreignId('registration_id')->constrained()->onDelete('cascade');
       $table->string('code')->nullable();
       $table->date('generate_date');
       $table->string('image')->nullable();

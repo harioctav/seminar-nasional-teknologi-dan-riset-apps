@@ -22,7 +22,7 @@ class RegistrationSeeder extends Seeder
         'type' => Constant::UPLOAD,
       ],
       [
-        'title' => 'Jadwal Acara Seminar',
+        'title' => 'Acara Seminar Batch Pertama',
         'start' => '2023-07-24',
         'end' => '2023-07-25',
         'status' => Constant::OPEN,

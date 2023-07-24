@@ -24,10 +24,12 @@ class Transaction extends Model
     'uuid',
     'user_id',
     'payment_id',
+    'registration_id',
     'upload_date',
     'amount',
     'proof',
     'status',
+    'description',
     'reason',
   ];
 
@@ -70,5 +72,15 @@ class Transaction extends Model
   public function payment(): BelongsTo
   {
     return $this->belongsTo(Payment::class, 'payment_id');
+  }
+
+  /**
+   * Relation to registration model.
+   *
+   * @return BelongsTo
+   */
+  public function registration(): BelongsTo
+  {
+    return $this->belongsTo(Registration::class, 'registration_id');
   }
 }

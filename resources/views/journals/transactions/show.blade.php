@@ -46,6 +46,12 @@
             {{ trans('Status Pembayaran') }}
             <span class="fw-semibold text-uppercase">{{ $transaction->status }}</span>
           </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-center">{{ trans('Statment') }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="fw-semibold text-center">{{ $transaction->description }}</span>
+          </li>
           @isset($transaction->reason)
             <li class="list-group-item d-flex justify-content-between">
               <span class="text-center">{{ trans('Alasan') }}</span>
@@ -54,6 +60,27 @@
               <span class="fw-semibold text-center">{{ $transaction->reason }}</span>
             </li>
           @endisset
+        </ul>
+
+        <h6 class="text-center">{{ trans('Detail Jadwal Yang Dibayarkan') }}</h6>
+
+        <ul class="list-group push">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ trans('Agenda') }}
+            <span class="fw-semibold">{{ $transaction->registration->title }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ trans('Tanggal Mulai') }}
+            <span class="fw-semibold">{{ Helper::customDate($transaction->registration->start) }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ trans('Tanggal Selesai') }}
+            <span class="fw-semibold">{{ Helper::customDate($transaction->registration->end) }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ trans('Jenis Kegiatan') }}
+            <span class="fw-semibold">{{ $transaction->registration->type }}</span>
+          </li>
         </ul>
 
         @if (me()->hasRole(Constant::ADMIN))
@@ -104,7 +131,7 @@
 
       </div>
       <div class="col-md-6">
-        <h4 class="text-center">{{ trans('Bukti Pembayaran') }}</h4>
+        <h6 class="text-center">{{ trans('Bukti Pembayaran') }}</h6>
         <div class="animated fadeIn img-link img-link-zoom-in img-thumb img-lightbox">
           <img class="img-fluid img-square-center" src="{{ Storage::url($transaction->proof) }}" alt="">
         </div>

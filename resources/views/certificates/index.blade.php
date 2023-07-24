@@ -14,12 +14,14 @@
         {{ trans('page.certificates.index') }}
       </h3>
       <div class="block-options">
-        @can('certificates.create')
-          <a href="{{ route('certificates.create') }}" class="btn btn-sm btn-primary">
-            <i class="fa fa-plus fa-xs me-1"></i>
-            {{ trans('page.certificates.create') }}
-          </a>
-        @endcan
+        @if(isRoleName() === Constant::PEMAKALAH || isRoleName() === Constant::PARTICIPANT)
+          @can('certificates.create')
+            <a href="{{ route('certificates.create') }}" class="btn btn-sm btn-primary">
+              <i class="fa fa-plus fa-xs me-1"></i>
+              {{ trans('page.certificates.create') }}
+            </a>
+          @endcan
+        @endif
       </div>
     </div>
     <div class="block-content">

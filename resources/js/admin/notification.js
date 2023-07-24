@@ -80,7 +80,7 @@ const markNotificationAsRead = async (notificationId, anchorTag) => {
         });
 
         loadNotification();
-        // window.location.reload();
+        window.location.reload();
         One.helpers("jq-notify", {
             type: "success",
             icon: "fa fa-bell me-1",

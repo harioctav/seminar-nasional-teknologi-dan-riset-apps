@@ -29,25 +29,15 @@
       <form action="{{ route('certificates.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return disableSubmitButton()">
         @csrf
 
+        <div class="mb-4">
+          <h4>Note</h4>
+          <ul>
+            <li>{{ trans('Anda hanya bisa mencetak SERTFIKAT BERDASARKAN DATA SEMINAR Yang Sudah BAYAR SEBELUMNYA, jadi mohon perhatikan lagi pembayaran yang sudah anda lakukan. Terimakasih.') }}</li>
+          </ul>
+        </div>
+
         <div class="row justify-content-center">
           <div class="col-md-6">
-
-            <div class="mb-4">
-              <label for="user_id" class="form-label">{{ trans('Pengguna') }}</label>
-              <select name="user_id" id="user_id" class="js-select2 form-select @error('user_id') is-invalid @enderror" data-placeholder="{{ trans('Pilih Pengguna') }}" style="width: 100%;">
-                <option></option>
-                @foreach ($users as $item)
-                  @if (old('user_id') == $item->id)
-                    <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                  @else
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                  @endif
-                @endforeach
-              </select>
-              @error('user_id')
-                <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
 
             <div class="mb-4">
               <label for="registration_id" class="form-label">{{ trans('Kegiatan') }}</label>
@@ -55,9 +45,9 @@
                 <option></option>
                 @foreach ($schedules as $item)
                   @if (old('registration_id') == $item->id)
-                    <option value="{{ $item->id }}" selected>{{ $item->type . ' at ' . Helper::customDate($item->end) }}</option>
+                    <option value="{{ $item->id }}" selected>{{ $item->title . ' at ' . Helper::customDate($item->end) }}</option>
                   @else
-                    <option value="{{ $item->id }}">{{ $item->type . ' at ' . Helper::customDate($item->end) }}</option>
+                    <option value="{{ $item->id }}">{{ $item->title . ' at ' . Helper::customDate($item->end) }}</option>
                   @endif
                 @endforeach
               </select>

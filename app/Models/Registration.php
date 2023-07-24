@@ -6,6 +6,7 @@ use App\Traits\Uuid;
 use App\Helpers\Global\Constant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Registration extends Model
 {
@@ -63,5 +64,25 @@ class Registration extends Model
     else :
       return '<span class="badge text-warning">' . Constant::SEMINAR .  '</span>';
     endif;
+  }
+
+  /**
+   * Relation to certificate model.
+   *
+   * @return HasOne
+   */
+  public function certificate(): HasOne
+  {
+    return $this->hasOne(Certificate::class, 'registration_id');
+  }
+
+  /**
+   * Relation to transaction model.
+   *
+   * @return HasOne
+   */
+  public function transaction(): HasOne
+  {
+    return $this->hasOne(Transaction::class, 'registration_id');
   }
 }

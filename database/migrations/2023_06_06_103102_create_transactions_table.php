@@ -16,10 +16,12 @@ return new class extends Migration
       $table->id();
       $table->string('uuid');
       $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
+      $table->foreignId('registration_id')->constrained('registrations', 'id')->onDelete('cascade');
       $table->date('upload_date');
       $table->integer('amount');
       $table->string('proof');
       $table->string('status')->default(Constant::PENDING);
+      $table->longText('description')->nullable();
       $table->longText('reason')->nullable();
       $table->timestamps();
     });

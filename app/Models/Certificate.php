@@ -19,6 +19,7 @@ class Certificate extends Model
   protected $fillable = [
     'uuid',
     'user_id',
+    'registration_id',
     'code',
     'generate_date',
     'image',
@@ -50,5 +51,15 @@ class Certificate extends Model
   public function user(): BelongsTo
   {
     return $this->belongsTo(User::class, 'user_id');
+  }
+
+  /**
+   * Relation to registration model.
+   *
+   * @return BelongsTo
+   */
+  public function registration(): BelongsTo
+  {
+    return $this->belongsTo(Registration::class, 'registration_id');
   }
 }

@@ -37,6 +37,7 @@
           <li>{{ trans('Pemakalah atau Peserta memilih rekening terlebih dahulu dan detail rekening akan muncul') }}</li>
           <li>Pemakalah atau Peserta melakukan pembayaran pada <strong>rekening yang sudah disediakan</strong></li>
           <li>Pemakalah atau Peserta <strong>yang melakukan pembayaran di luar rekening yang sudah disediakan oleh admin</strong>, maka tidak akan diproses dan kami tidak akan bertanggung jawab pada hal tersebut</li>
+          <li>{{ trans('Anda hanya dapat melakukan pembayaran jika jadwal seminar sudah dimulai') }}</li>
           <li>{{ trans('Jumlah yang harus di bayarkan adalah sebesar 55,000 Rupiah') }}</li>
           <li>
             <strong>Note:</strong> Jika sudah memilih rekening detail informasi bank tidak muncul, harap melakukan refresh halaman atau gunakan browser yang mendukung
@@ -63,6 +64,23 @@
               @endforeach
             </select>
             @error('payment_id')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="mb-4">
+            <label for="registration_id" class="form-label">{{ trans('Jadwal Kegiatan') }}</label>
+            <select name="registration_id" id="registration_id" class="js-select2 form-select @error('registration_id') is-invalid @enderror" data-placeholder="{{ trans('Pilih Jadwal Kegiatan') }}" style="width: 100%;">
+              <option></option>
+              @foreach ($schedules as $item)
+                @if (old('registration_id') == $item->id)
+                  <option value="{{ $item->id }}" data-uuid="{{ $item->uuid }}" selected>{{ $item->title . ' - ' . Helper::customDate($item->start) }}</option>
+                @else
+                  <option value="{{ $item->id }}" data-uuid="{{ $item->uuid }}">{{ $item->title . ' - ' . Helper::customDate($item->start) }}</option>
+                @endif
+              @endforeach
+            </select>
+            @error('registration_id')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>

@@ -52,11 +52,12 @@ class TransactionController extends Controller
    */
   public function create()
   {
-    if (isRoleName() === Constant::ADMIN) :
+    if (isRoleName() === Constant::ADMIN || isRoleName() === Constant::REVIEWER) :
       abort(403, trans('error.403'));
     endif;
 
     $user = $this->userService->findOrFail(me()->id);
+
     if (isRoleName() === Constant::PEMAKALAH) :
       if (!$user->canCreateTransaction()) :
         return redirect()->route('transactions.index')->with('error', trans('error.can_create_transaction'));
@@ -64,7 +65,8 @@ class TransactionController extends Controller
     endif;
 
     $payments = $this->paymentService->getActiveStatus()->get();
-    return view('journals.transactions.create', compact('payments'));
+    $schedules = $this->registrationService->getRegistrationUnpaid($user->id);
+    return view('journals.transactions.create', compact('payments', 'schedules'));
   }
 
   /**

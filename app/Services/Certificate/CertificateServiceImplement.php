@@ -10,8 +10,6 @@ use LaravelEasyRepository\Service;
 use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Illuminate\Support\Facades\Redirect;
 use App\Repositories\User\UserRepository;
 use App\Http\Requests\Submissions\CertificateRequest;
 use App\Repositories\Certificate\CertificateRepository;
@@ -67,7 +65,7 @@ class CertificateServiceImplement extends Service implements CertificateService
     try {
       // Add logic
       // Get user & registration data
-      $user = $this->userRepository->findOrFail($request->user_id);
+      $user = $this->userRepository->findOrFail(me()->id);
       $schedule = $this->registrationRepository->findOrFail($request->registration_id);
 
       // Prepare parameter for certificate
@@ -131,6 +129,7 @@ class CertificateServiceImplement extends Service implements CertificateService
       $data['code'] = $number;
       $data['generate_date'] = Carbon::now()->toDateString();
       $data['user_id'] = $user->id;
+      $data['registration_id'] = $schedule->id;
       $data['image'] = $output_path;
 
       $return = $this->mainRepository->create($data);

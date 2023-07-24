@@ -23,8 +23,9 @@ class TransactionRequest extends FormRequest
   {
     return [
       'payment_id' => 'required',
-      'amount' => 'required',
+      'registration_id' => 'required',
       'proof' => 'required|image|mimes:jpg,png|max:3048',
+      'amount' => 'required',
     ];
   }
 
@@ -32,6 +33,7 @@ class TransactionRequest extends FormRequest
   {
     return [
       'payment_id.required' => ':attribute tidak boleh dikosongkan',
+      'registration_id.required' => ':attribute tidak boleh dikosongkan',
       'amount.required' => ':attribute tidak boleh dikosongkan',
 
       'proof.required' => ':attribute tidak boleh dikosongkan',
@@ -45,6 +47,7 @@ class TransactionRequest extends FormRequest
   {
     return [
       'payment_id' => 'Rekening pembayaran',
+      'registration_id' => 'Jadwal Kegiatan',
       'amount' => 'Jumlah Bayar',
       'proof' => 'Bukti Bayar',
     ];

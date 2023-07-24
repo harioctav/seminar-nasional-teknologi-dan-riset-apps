@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Submissions;
 
-use App\DataTables\Submissions\CertificateDataTable;
-use App\Helpers\Global\Helper;
+use App\Models\Certificate;
 use Illuminate\Http\Request;
+use App\Helpers\Global\Helper;
+use App\Helpers\Global\Constant;
+use App\Services\User\UserService;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Submissions\CertificateRequest;
-use App\Models\Certificate;
 use Intervention\Image\Facades\Image;
 use App\Services\Certificate\CertificateService;
 use App\Services\Registration\RegistrationService;
-use App\Services\User\UserService;
+use App\DataTables\Submissions\CertificateDataTable;
+use App\Http\Requests\Submissions\CertificateRequest;
 
 class CertificateController extends Controller
 {
@@ -42,14 +43,25 @@ class CertificateController extends Controller
    */
   public function create()
   {
-    $users = $this->userService->getUserWhereHasTransaction()->get();
-    $schedules = $this->registrationService->getRegistrationByType();
-    return view('certificates.create', compact('users', 'schedules'));
+    if (isRoleName() === Constant::ADMIN || isRoleName() === Constant::REVIEWER) :
+      abort(403, trans('error.403'));
+    endif;
+
+    $schedules = $this->registrationService->getRegistrationPaid(me()->id);
+    return view('certificates.create', compact('schedules'));
   }
 
   public function store(CertificateRequest $request)
   {
-    $this->certificateService->handleCreateCertificate($request);
+    $user = $this->userService->findOrFail(me()->id);
+
+    // Cek
+    if (Helper::canPrintCertificate($user->id, $request->registration_id)) :
+      $this->certificateService->handleCreateCertificate($request);
+    else :
+      return redirect()->route('certificates.index')->with('error', 'Anda sudah melakukan cetak sertifikat pada Acara tersebut, tidak bisa duplikat');
+    endif;
+
     return redirect()->route('certificates.index')->with('success', 'Sertifikat berhasil di generate');
   }
 }

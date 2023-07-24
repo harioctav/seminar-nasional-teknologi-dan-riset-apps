@@ -50,4 +50,32 @@ class RegistrationServiceImplement extends Service implements RegistrationServic
     DB::commit();
     return $return;
   }
+
+  public function getRegistrationUnpaid(int $user_id)
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getRegistrationUnpaid($user_id);
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
+
+  public function getRegistrationPaid(int $user_id)
+  {
+    DB::beginTransaction();
+    try {
+      $return = $this->mainRepository->getRegistrationPaid($user_id);
+    } catch (Exception $e) {
+      DB::rollBack();
+      Log::info($e->getMessage());
+      throw new InvalidArgumentException(trans('session.log.error'));
+    }
+    DB::commit();
+    return $return;
+  }
 }
